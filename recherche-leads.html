@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recherche de Leads – Devinblack</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;color:#1a1a2e;line-height:1.6;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,0.04);padding:0 24px;}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-logo svg{display:block;}
+.nav-links{display:flex;gap:6px;align-items:center;}
+.nav-links>li{position:relative;}
+.nav-links>li>a{color:#1a1a2e;font-size:15px;font-weight:500;padding:9px 20px;display:inline-flex;align-items:center;gap:7px;border-radius:10px;transition:all .2s;}
+.nav-links>li>a:hover{background:#f5f5f5;}
+.nav-links>li>a.bordered{border:1.5px solid #d8d8d8;}
+.chevron{width:10px;height:6px;stroke:#1a1a2e;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s;}
+.nav-links>li:hover .chevron{transform:rotate(180deg);}
+.btn-nav{display:inline-flex;align-items:center;background:#2b5540;color:#fff;padding:12px 26px;border-radius:50px;font-weight:600;font-size:14px;border:none;cursor:pointer;transition:all .25s;white-space:nowrap;}
+.btn-nav:hover{background:#1e3d2e;}
+.mega-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px);background:#fff;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.04);padding:28px 32px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;z-index:200;}
+.mega-menu::before{content:'';position:absolute;top:-12px;left:0;right:0;height:12px;}
+.nav-links>li:hover>.mega-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.mega-menu--solutions{width:680px;}.mega-menu--formations{width:480px;}
+.mega-grid{display:grid;gap:4px;}.mega-grid--2col{grid-template-columns:1fr 1fr;}.mega-grid--1col{grid-template-columns:1fr;}
+.mega-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:12px;transition:background .18s;cursor:pointer;}
+.mega-item:hover{background:#f5f7f6;}
+.mega-item-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+.mega-item-icon.green{background:#eaf5ef;}.mega-item-icon.purple{background:#f0edf7;}.mega-item-icon.blue{background:#edf2fb;}.mega-item-icon.orange{background:#fdf1e8;}.mega-item-icon.teal{background:#e8f4f4;}.mega-item-icon.pink{background:#fceef2;}
+.mega-item-title{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;display:flex;align-items:center;gap:8px;}
+.mega-item-desc{font-size:12.5px;color:#6b7280;line-height:1.5;}
+.mega-tag{display:inline-block;background:#2b5540;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;}
+.mega-divider{height:1px;background:#eee;margin:12px 0;}
+.mega-footer{display:flex;align-items:center;gap:8px;padding:12px 16px 0;font-size:12.5px;color:#6b7280;}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+
+/* HERO DARK */
+#hero{padding:140px 0 80px;background:linear-gradient(160deg,#0f1117 0%,#1a1f2e 100%);color:#fff;position:relative;overflow:hidden;}
+#hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(43,85,64,.2),transparent 70%);border-radius:50%;}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1;}
+.hero-tag{display:inline-block;background:rgba(43,85,64,.3);color:#7dd3a8;font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:50px;letter-spacing:.04em;margin-bottom:20px;border:1px solid rgba(43,85,64,.5);}
+.hero-title{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:20px;}
+.hero-desc{font-size:1rem;color:#9ca3af;line-height:1.7;margin-bottom:24px;max-width:480px;}
+.hero-checks{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.hero-checks li{display:flex;align-items:center;gap:10px;font-size:.9rem;color:#d1d5db;}
+.hero-checks li::before{content:'';width:20px;height:20px;background:#2b5540;border-radius:50%;flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center;}
+.hero-img{border-radius:20px;overflow:hidden;}
+.hero-img img{width:100%;height:auto;object-fit:cover;border-radius:20px;}
+
+/* ATTRACT */
+#attract{padding:100px 0;background:#fff;text-align:center;}
+.attract-tag{display:inline-block;background:#eaf5ef;color:#2b5540;font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:50px;letter-spacing:.04em;margin-bottom:20px;}
+.attract-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.02em;margin-bottom:16px;}
+.attract-desc{color:#6b7280;font-size:1rem;max-width:500px;margin:0 auto 48px;}
+.attract-visual{max-width:600px;margin:0 auto;position:relative;}
+.attract-visual img{width:100%;border-radius:16px;}
+.badge-float{position:absolute;background:#fff;border-radius:50px;box-shadow:0 4px 20px rgba(0,0,0,.1);padding:8px 16px;font-size:.82rem;font-weight:600;white-space:nowrap;}
+.badge-float.right{right:-30px;top:30%;color:#2b5540;}
+.badge-float.left{left:-30px;top:50%;color:#6b5ce7;}
+.badge-float.bottom{left:50%;bottom:-20px;transform:translateX(-50%);color:#f0b429;}
+
+/* PROCESSUS */
+#processus{padding:100px 0;background:#0f1117;color:#fff;position:relative;overflow:hidden;}
+.process-tag{display:inline-block;background:rgba(43,85,64,.3);color:#7dd3a8;font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:50px;letter-spacing:.04em;margin-bottom:20px;}
+.process-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.02em;margin-bottom:60px;text-align:center;}
+.process-steps{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto;}
+.process-step{display:flex;gap:20px;align-items:flex-start;}
+.step-num{width:40px;height:40px;background:#2b5540;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;flex-shrink:0;color:#fff;}
+.step-content h3{font-size:1rem;font-weight:700;margin-bottom:6px;}
+.step-content p{font-size:.85rem;color:#9ca3af;line-height:1.6;}
+.process-img{max-width:320px;border-radius:16px;overflow:hidden;margin:20px auto 0;}
+.process-img img{width:100%;height:auto;border-radius:16px;}
+
+/* PRICING */
+#pricing{padding:100px 0;background:#f8f9fa;}
+.pricing-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.02em;text-align:center;margin-bottom:12px;}
+.pricing-tag{text-align:center;margin-bottom:48px;}
+.pricing-tag span{display:inline-block;background:#eaf5ef;color:#2b5540;font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:50px;}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:800px;margin:0 auto;}
+.pricing-card{background:#fff;border:1px solid #eee;border-radius:20px;padding:36px 28px;transition:all .3s;}
+.pricing-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08);}
+.pricing-price{font-size:2.4rem;font-weight:800;color:#1a1a2e;letter-spacing:-.03em;}
+.pricing-price span{font-size:.9rem;font-weight:500;color:#6b7280;}
+.pricing-period{font-size:.85rem;color:#6b7280;margin-bottom:24px;}
+.pricing-desc{font-size:.88rem;color:#6b7280;margin-bottom:24px;line-height:1.6;}
+.pricing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.pricing-features li{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:#1a1a2e;}
+.pricing-features li::before{content:'';width:18px;height:18px;background:#2b5540;border-radius:50%;flex-shrink:0;margin-top:2px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");background-size:10px;background-repeat:no-repeat;background-position:center;}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#2b5540;color:#fff;padding:14px 28px;border-radius:12px;font-weight:600;font-size:.95rem;border:none;cursor:pointer;transition:all .25s;width:100%;}
+.btn-primary:hover{background:#1e3d2e;}
+
+/* COMPLEMENTS */
+#complements{padding:100px 0;background:#fff;}
+.comp-title{font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:800;letter-spacing:-.02em;text-align:center;max-width:600px;margin:0 auto 48px;line-height:1.2;}
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.comp-card{background:#f8f9fa;border:1px solid #eee;border-radius:16px;padding:28px;text-align:center;transition:all .3s;}
+.comp-card:hover{border-color:#2b5540;transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08);}
+.comp-card-icon{width:56px;height:56px;background:#eaf5ef;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 16px;}
+.comp-card h3{font-size:1rem;font-weight:700;margin-bottom:8px;}
+.comp-card p{font-size:.85rem;color:#6b7280;line-height:1.6;margin-bottom:20px;}
+.comp-card .btn-sm{display:inline-flex;align-items:center;justify-content:center;background:#2b5540;color:#fff;padding:10px 20px;border-radius:10px;font-weight:600;font-size:.82rem;transition:all .25s;width:100%;}
+.comp-card .btn-sm:hover{background:#1e3d2e;}
+
+/* CTA */
+#cta-banner{background:#1a2e22;padding:60px 0;position:relative;overflow:hidden;}
+#cta-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#2b5540,#1a2e22);}
+.cta-inner{position:relative;z-index:1;text-align:center;color:#fff;}
+.cta-inner h2{font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:700;margin-bottom:12px;}
+.cta-inner p{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;}
+.cta-form{display:flex;gap:0;max-width:500px;margin:0 auto;}
+.cta-form input{flex:1;padding:14px 20px;border:none;border-radius:12px 0 0 12px;font-size:14px;font-family:inherit;outline:none;}
+.cta-form button{padding:14px 24px;background:#f0b429;color:#1a1a2e;border:none;border-radius:0 12px 12px 0;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+
+/* FOOTER */
+footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand p{font-size:.82rem;line-height:1.7;margin-top:14px;}
+.footer-col h4{color:#fff;font-size:.85rem;font-weight:600;margin-bottom:16px;}
+.footer-col ul{display:flex;flex-direction:column;gap:9px;}
+.footer-col ul a{color:#8888a0;font-size:.82rem;transition:color .2s;}
+.footer-col ul a:hover{color:#2b5540;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:.78rem;color:#555568;}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{color:#555568;font-size:.78rem;}
+
+@media(max-width:900px){
+  .hero-grid,.process-steps,.pricing-grid,.comp-grid,.footer-grid{grid-template-columns:1fr;}
+  nav .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="42" height="32" viewBox="0 0 42 32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="7" height="28" rx="2" fill="#1a1a2e"/>
+        <rect x="13" y="8" width="7" height="22" rx="2" fill="#1a1a2e"/>
+        <rect x="24" y="2" width="7" height="28" rx="2" fill="#1a1a2e"/>
+        <rect x="35" y="10" width="5" height="12" rx="2" fill="#2b5540"/>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="#" class="bordered">Solutions <svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu mega-menu--solutions">
+          <div class="mega-grid mega-grid--2col">
+            <a href="recherche-leads.html" class="mega-item"><div class="mega-item-icon green">&#128640;</div><div class="mega-item-text"><div class="mega-item-title">Besoin de nouvelles leads <span class="mega-tag">Populaire</span></div><div class="mega-item-desc">Faites grandir votre entreprise et soyez dans la boite mail de vos prospects.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon purple">&#128202;</div><div class="mega-item-text"><div class="mega-item-title">Comprendre mes donnees</div><div class="mega-item-desc">Prenez des decisions basees sur vos donnees.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon blue">&#9889;</div><div class="mega-item-text"><div class="mega-item-title">Traiter mes leads efficacement</div><div class="mega-item-desc">Meilleure gestion et suivi automatise.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon teal">&#128269;</div><div class="mega-item-text"><div class="mega-item-title">Besoin d'un audit Global</div><div class="mega-item-desc">Vision claire des actions a mener.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon orange">&#129302;</div><div class="mega-item-text"><div class="mega-item-title">Gagner du temps sur mes process</div><div class="mega-item-desc">Eliminez la double saisie et les taches redondantes.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon pink">&#127919;</div><div class="mega-item-text"><div class="mega-item-title">Pages de ventes</div><div class="mega-item-desc">Presence personnalisee pour convertir.</div></div></a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="#">Formations <svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu mega-menu--formations">
+          <div class="mega-grid mega-grid--1col">
+            <a href="formation-ga4.html" class="mega-item"><div class="mega-item-icon blue">&#128200;</div><div class="mega-item-text"><div class="mega-item-title">Google Analytics 4</div><div class="mega-item-desc">Maitrisez GA4 de A a Z.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon orange">&#128236;</div><div class="mega-item-text"><div class="mega-item-title">ActiveCampaign</div><div class="mega-item-desc">Automatisez votre marketing et CRM.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon green">&#128279;</div><div class="mega-item-text"><div class="mega-item-title">HubSpot CRM</div><div class="mega-item-desc">Pipeline commercial et automation.</div></div></a>
+          </div>
+          <div class="mega-divider"></div>
+          <div class="mega-footer"><span>&#127891;</span> Formations certifiees <strong style="color:#1a1a2e;margin-left:4px;">QUALIOPI</strong></div>
+        </div>
+      </li>
+      <li><a href="#">Qui suis-je ?</a></li>
+    </ul>
+    <div><a href="#cta-banner" class="btn-nav">Prendre Rendez-vous</a></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag">&#128640; Generation de leads</div>
+        <h1 class="hero-title">Touchez une base de prospects avec votre produit</h1>
+        <p class="hero-desc">Accedez a un large panel de decisionnaires et de 10 a 100 par jours de nouveaux contacts correspondant a votre cible, on vous aide a avoir les outils et methodes les plus efficaces de prospection B2B et vous.</p>
+        <ul class="hero-checks">
+          <li>Emails personnalises</li>
+          <li>Base de donnees ciblees</li>
+          <li>Taux de reponses moyens significatifs et engageants</li>
+        </ul>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?w=560&h=400&fit=crop" alt="Email marketing prospection B2B">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATTRACT -->
+<section id="attract">
+  <div class="container">
+    <div class="attract-tag">Nos resultats concrets</div>
+    <h2 class="attract-title">Attract customers with visually striking design</h2>
+    <p class="attract-desc">Votre strategie de contacts pour etre efficace, doit etre un element de notre strategie data et outillage.</p>
+    <div class="attract-visual">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=380&fit=crop" alt="Equipe collaboration marketing">
+      <div class="badge-float right">&#128200; Sales et Traffic</div>
+      <div class="badge-float left">&#9889; Engagement</div>
+      <div class="badge-float bottom">&#128279; Suivi Marketing</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section id="processus">
+  <div class="container" style="text-align:center;">
+    <div class="process-tag">Nos Process</div>
+    <h2 class="process-title">Un processus eprouve et</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Decouverte &amp; Analyse</h3>
+          <p>Un audit approfondi pour comprendre votre offre, vos prospects et la meilleure strategie commerciale, puis pour identifier et analyser le meilleur marketing a destination de vos prospects.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Creation messages &amp; base prospects</h3>
+          <p>Creation des sequences email : redaction des accroches et des relances personnalises. Creation d'une base de donnees B2B qualifiee de milliers de decision. Segmentation poussee des entreprises et profils cibles.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Mise en place techniques</h3>
+          <p>Discover the secrets to strategic business development.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Lancement &amp; Optimisation</h3>
+          <p>Lancement des campagnes, suivi des taux d'ouverture et de conversion en temps reel. Optimisations continues pour maximiser les resultats.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="pricing-tag"><span>Offres</span></div>
+    <h2 class="pricing-title">Choose the right plan for you</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-price">1900 &#8364; <span>/ sur 3 mois</span></div>
+        <div class="pricing-desc">Un package complet pour lancer votre prospection B2B automatisee et generer vos premieres leads qualifiees.</div>
+        <ul class="pricing-features">
+          <li>Marches : sous la UE</li>
+          <li>1 ENVOI A L'HORIZON DE 2000 CONTACTS</li>
+          <li>SCRIPT D'ACCROCHE OU DECOUVERTE EMAIL LIEE</li>
+          <li>Suite a tout envoi nos vos prospects delivrent et repondent</li>
+          <li>Toutes les bases pour emailer en masse pour de meilleures conversions</li>
+        </ul>
+        <a href="#cta-banner" class="btn-primary">Je lance ma campagne &rarr;</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-price">2200 &#8364; <span>/ sur 3 mois</span></div>
+        <div class="pricing-desc">Le pack premium pour une prospection multicanale avancee avec plus de volume et d'optimisations.</div>
+        <ul class="pricing-features">
+          <li>Marches : sous la UE</li>
+          <li>2 A 4 ENVOIS DE 2000 A 10 000 CONTACTS</li>
+          <li>SCRIPTS D'ACCROCHE PERSONALISES OU DECOUVERTE EMAIL</li>
+          <li>Suivi des taux de livraison et d'optimisation continue</li>
+          <li>Toutes les bases pour emailer en masse + scoring de vos leads</li>
+        </ul>
+        <a href="#cta-banner" class="btn-primary">Je veux ce pack &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLEMENTS -->
+<section id="complements">
+  <div class="container">
+    <p style="text-align:center;font-size:.82rem;color:#6b7280;margin-bottom:8px;">Afin de completer votre besoin en lead</p>
+    <h2 class="comp-title">Afin de completer votre besoin, des outils complementaires peuvent etre ajoutes a votre campagne.</h2>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-card-icon">&#10010;</div>
+        <h3>Landing Page</h3>
+        <p>Creation d'une page d'atterrissage dediee pour booster vos conversions. Un design specifique, un tunnel optimise et de la conversion immediate.</p>
+        <a href="#" class="btn-sm">Je decouvre une reference &rarr;</a>
+      </div>
+      <div class="comp-card">
+        <div class="comp-card-icon">&#9650;</div>
+        <h3>LinkedIn</h3>
+        <p>Profitez du levier des reseaux professionnels pour adresser des demandes de prises de contacts specifiques et de recommandations personnalisees.</p>
+        <a href="#" class="btn-sm">Je decouvre une reference &rarr;</a>
+      </div>
+      <div class="comp-card">
+        <div class="comp-card-icon">&#128200;</div>
+        <h3>Ajout de nouvelles niches</h3>
+        <p>Elargissez votre base de prospect specifique au dela de vos premieres niches ciblees. Nous pouvons elargir de facon strategique l'audience de vos campagnes.</p>
+        <a href="#" class="btn-sm">Je decouvre une reference &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section id="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Vous n'etes pas sur de votre besoin ?</h2>
+      <p>Prenez rendez-vous gratuit de 30 minutes pour expliquer vos objectifs et possibilites.</p>
+      <div class="cta-form">
+        <input type="text" placeholder="Selectionnez une information">
+        <button>Demande de rappel</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg width="42" height="32" viewBox="0 0 42 32" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="7" height="28" rx="2" fill="#fff"/>
+          <rect x="13" y="8" width="7" height="22" rx="2" fill="#fff"/>
+          <rect x="24" y="2" width="7" height="28" rx="2" fill="#fff"/>
+          <rect x="35" y="10" width="5" height="12" rx="2" fill="#2b5540"/>
+        </svg>
+        <p>Une methodologie eprouvee et professionnalisee dans la croissance, marketing et data B2B.</p>
+      </div>
+      <div class="footer-col"><h4>Solutions</h4><ul><li><a href="recherche-leads.html">Recherche de leads</a></li><li><a href="#">Traitement des leads</a></li><li><a href="#">Donnees de conversion</a></li><li><a href="#">Besoin d'un Audit</a></li></ul></div>
+      <div class="footer-col"><h4>Apporteur d'Affaires</h4><ul><li><a href="#">Je suis une Agence</a></li><li><a href="#">Je suis Freelance</a></li></ul></div>
+      <div class="footer-col"><h4>Formations</h4><ul><li><a href="formation-ga4.html">Formation Google Analytics 4</a></li><li><a href="#">Formation ActiveCampaign</a></li><li><a href="#">Formation HubSpot</a></li></ul></div>
+      <div class="footer-col"><h4>Espace Clients</h4><ul><li><a href="#">Espace de Tickets</a></li><li><a href="#">Chat Messenger</a></li><li><a href="#">Suivi mes Factures</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 - Devinblack Stephane Aminaux</p>
+      <div class="footer-legal"><a href="#">Politique de confidentialite</a><a href="#">Conditions de services</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
