@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devinblack – Croissance B2B Automatisée</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0a0a0f;
+    color: #e8e8f0;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ===== VARIABLES ===== */
+  :root {
+    --gold: #f0b429;
+    --gold-light: #ffd166;
+    --dark: #0a0a0f;
+    --dark-2: #111118;
+    --dark-3: #1a1a24;
+    --dark-4: #22222e;
+    --white: #f0f0f8;
+    --grey: #8888a0;
+    --border: rgba(240,180,41,0.15);
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+  h3 { font-size: 1.2rem; font-weight: 600; }
+  p  { color: #9999b8; font-size: 1.05rem; }
+
+  /* ===== LAYOUT ===== */
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 100px 0; }
+
+  /* ===== BADGES ===== */
+  .badge {
+    display: inline-block;
+    background: rgba(240,180,41,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(240,180,41,0.3);
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold);
+    color: #0a0a0f;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(240,180,41,0.35); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--white);
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    display: inline-flex; align-items: center;
+    text-decoration: none;
+  }
+  .nav-logo svg { display: block; }
+  .nav-links { display: flex; gap: 6px; list-style: none; align-items: center; }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a {
+    color: #1a1a2e; text-decoration: none;
+    font-size: 15px; font-weight: 500;
+    padding: 9px 20px;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: all 0.2s;
+    border-radius: 10px;
+  }
+  .nav-links > li > a:hover { background: #f5f5f5; }
+  .nav-links > li > a.bordered {
+    border: 1.5px solid #d8d8d8;
+    background: #fff;
+  }
+  .nav-links > li > a.bordered:hover { border-color: #bbb; }
+  .nav-links .chevron {
+    width: 10px; height: 6px;
+    stroke: #1a1a2e; stroke-width: 1.5; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+    transition: transform 0.25s ease;
+  }
+  .nav-links > li:hover .chevron { transform: rotate(180deg); }
+  .nav-cta { display: flex; align-items: center; gap: 16px; }
+  .btn-nav {
+    display: inline-flex; align-items: center;
+    background: #2b5540;
+    color: #ffffff;
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .btn-nav:hover { background: #1e3d2e; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(43,85,64,0.3); }
+
+  /* ===== MEGA MENU ===== */
+  .mega-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%; transform: translateX(-50%);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+    padding: 28px 32px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 200;
+  }
+  .mega-menu::before {
+    content: '';
+    position: absolute; top: -12px; left: 0; right: 0; height: 12px;
+  }
+  .nav-links > li:hover > .mega-menu {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .mega-menu--solutions { width: 680px; }
+  .mega-menu--formations { width: 480px; }
+
+  .mega-grid {
+    display: grid;
+    gap: 4px;
+  }
+  .mega-grid--2col { grid-template-columns: 1fr 1fr; }
+  .mega-grid--1col { grid-template-columns: 1fr; }
+
+  .mega-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.18s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .mega-item:hover { background: #f5f7f6; }
+  .mega-item-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; flex-shrink: 0;
+    background: #f0f4f2;
+  }
+  .mega-item-icon.purple { background: #f0edf7; }
+  .mega-item-icon.blue   { background: #edf2fb; }
+  .mega-item-icon.orange { background: #fdf1e8; }
+  .mega-item-icon.green  { background: #eaf5ef; }
+  .mega-item-icon.teal   { background: #e8f4f4; }
+  .mega-item-icon.pink   { background: #fceef2; }
+  .mega-item-text { flex: 1; min-width: 0; }
+  .mega-item-title {
+    font-size: 14px; font-weight: 600; color: #1a1a2e;
+    margin-bottom: 3px; display: flex; align-items: center; gap: 8px;
+  }
+  .mega-item-desc {
+    font-size: 12.5px; color: #6b7280; line-height: 1.5;
+  }
+  .mega-tag {
+    display: inline-block;
+    background: #2b5540; color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 50px;
+    letter-spacing: 0.03em;
+  }
+
+  .mega-divider {
+    height: 1px; background: #eee; margin: 12px 0;
+  }
+  .mega-footer {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px 0;
+    font-size: 12.5px; color: #6b7280;
+  }
+  .mega-footer-icon { font-size: 1rem; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mega-menu { display: none; }
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 50%, rgba(240,180,41,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(90,60,180,0.08) 0%, transparent 60%);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    position: relative; z-index: 1;
+  }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(240,180,41,0.08);
+    border: 1px solid rgba(240,180,41,0.25);
+    border-radius: 50px; padding: 7px 16px;
+    font-size: 0.82rem; font-weight: 600; color: var(--gold);
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--gold); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .hero-title { margin-bottom: 24px; }
+  .hero-title .accent { color: var(--gold); }
+  .hero-desc { font-size: 1.15rem; color: #8888a8; max-width: 480px; margin-bottom: 36px; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+  .hero-stats { display: flex; gap: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.07); }
+  .stat-item .stat-number {
+    font-size: 1.8rem; font-weight: 800; color: var(--white); letter-spacing: -0.03em;
+  }
+  .stat-item .stat-number span { color: var(--gold); }
+  .stat-item .stat-label { font-size: 0.8rem; color: var(--grey); margin-top: 2px; }
+
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+  }
+  .hero-card {
+    background: var(--dark-3);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px;
+    padding: 32px;
+    width: 100%; max-width: 420px;
+    position: relative;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; inset: -1px;
+    border-radius: 21px;
+    background: linear-gradient(135deg, rgba(240,180,41,0.3), transparent 50%);
+    z-index: -1;
+  }
+  .metric-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .metric-icon.yellow { background: rgba(240,180,41,0.15); }
+  .metric-icon.blue   { background: rgba(80,120,240,0.15); }
+  .metric-icon.green  { background: rgba(50,200,120,0.15); }
+  .metric-label { font-size: 0.82rem; color: var(--grey); }
+  .metric-value { font-size: 1.3rem; font-weight: 700; color: var(--white); }
+  .metric-delta {
+    margin-left: auto;
+    background: rgba(50,200,120,0.15);
+    color: #32c878;
+    font-size: 0.78rem; font-weight: 600;
+    padding: 4px 10px; border-radius: 50px;
+  }
+
+  /* ===== SECTION HEADER ===== */
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-header p { max-width: 560px; margin: 12px auto 0; }
+
+  /* ===== SOLUTIONS GRID ===== */
+  #solutions { background: var(--dark-2); }
+  .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .solutions-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .solutions-grid { grid-template-columns: 1fr; } }
+
+  .solution-card {
+    background: var(--dark-3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .solution-card:hover {
+    border-color: rgba(240,180,41,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .solution-card.popular::after {
+    content: 'Populaire';
+    position: absolute; top: 16px; right: 16px;
+    background: var(--gold); color: #0a0a0f;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 50px;
+    letter-spacing: 0.05em;
+  }
+  .solution-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: rgba(240,180,41,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 16px;
+  }
+  .solution-card h3 { color: var(--white); margin-bottom: 8px; font-size: 1.05rem; }
+  .solution-card p { font-size: 0.88rem; color: var(--grey); }
+  .solution-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--gold); font-size: 0.85rem; font-weight: 600;
+    margin-top: 16px; text-decoration: none;
+    transition: gap 0.2s;
+  }
+  .solution-link:hover { gap: 10px; }
+
+  /* ===== RESULTS ===== */
+  #results {
+    background: linear-gradient(135deg, #0f0f18 0%, #1a1420 100%);
+    position: relative; overflow: hidden;
+  }
+  #results::before {
+    content: '';
+    position: absolute; top: -50%; left: -20%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(240,180,41,0.06) 0%, transparent 70%);
+  }
+  .results-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 32px; position: relative; z-index: 1;
+  }
+  @media (max-width: 768px) { .results-grid { grid-template-columns: repeat(2, 1fr); } }
+  .result-item { text-align: center; padding: 32px 20px; }
+  .result-number {
+    font-size: 3rem; font-weight: 800; color: var(--gold);
+    letter-spacing: -0.04em; line-height: 1;
+    margin-bottom: 8px;
+  }
+  .result-label { font-size: 0.9rem; color: var(--grey); }
+
+  /* ===== SERVICES DETAILS ===== */
+  #services { background: var(--dark); }
+  .services-list { display: flex; flex-direction: column; gap: 80px; }
+  .service-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .service-row.reverse { direction: rtl; }
+  .service-row.reverse > * { direction: ltr; }
+  @media (max-width: 768px) {
+    .service-row, .service-row.reverse { grid-template-columns: 1fr; direction: ltr; }
+  }
+  .service-visual {
+    background: var(--dark-3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 40px;
+    aspect-ratio: 4/3;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    gap: 16px;
+    position: relative; overflow: hidden;
+  }
+  .service-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(240,180,41,0.05) 0%, transparent 70%);
+  }
+  .service-visual-icon { font-size: 3.5rem; }
+  .service-visual-label {
+    font-size: 0.85rem; color: var(--grey); text-align: center;
+    position: relative; z-index: 1;
+  }
+  .service-content .badge { margin-bottom: 16px; }
+  .service-content h2 { margin-bottom: 16px; }
+  .service-content p { margin-bottom: 24px; }
+  .service-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .service-features li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.9rem; color: #aaaacc;
+  }
+  .service-features li::before {
+    content: '✓';
+    width: 22px; height: 22px;
+    background: rgba(240,180,41,0.1);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ===== PACKAGES ===== */
+  #packages { background: var(--dark-2); }
+  .packages-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .packages-grid { grid-template-columns: 1fr; } }
+  .package-card {
+    background: var(--dark-3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 36px 28px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .package-card.featured {
+    border-color: rgba(240,180,41,0.4);
+    background: linear-gradient(160deg, rgba(240,180,41,0.05) 0%, var(--dark-3) 50%);
+  }
+  .package-card.featured::before {
+    content: 'Recommandé';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #0a0a0f;
+    font-size: 0.72rem; font-weight: 700;
+    padding: 4px 18px; border-radius: 0 0 10px 10px;
+    letter-spacing: 0.05em;
+  }
+  .package-card:hover { transform: translateY(-6px); box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
+  .package-name { font-size: 0.85rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .package-title { font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+  .package-desc { font-size: 0.88rem; color: var(--grey); margin-bottom: 24px; }
+  .package-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .package-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.88rem; color: #aaaacc;
+  }
+  .package-features li span { color: var(--gold); font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== PROCESS ===== */
+  #process { background: var(--dark); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px; position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 32px; left: 16.66%; right: 16.66%;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    z-index: 0;
+  }
+  @media (max-width: 768px) {
+    .process-steps { grid-template-columns: 1fr; }
+    .process-steps::before { display: none; }
+  }
+  .process-step { text-align: center; position: relative; z-index: 1; }
+  .step-number {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--dark-3);
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 800; color: var(--gold);
+    margin: 0 auto 20px;
+  }
+  .process-step h3 { color: var(--white); margin-bottom: 10px; }
+  .process-step p { font-size: 0.88rem; }
+
+  /* ===== TESTIMONIALS ===== */
+  #testimonials { background: var(--dark-2); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+  .testimonial-card {
+    background: var(--dark-3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.3s;
+  }
+  .testimonial-card:hover { border-color: rgba(240,180,41,0.2); transform: translateY(-4px); }
+  .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 2px; }
+  .testimonial-text {
+    font-size: 0.92rem; color: #aaaacc; font-style: italic;
+    line-height: 1.7; margin-bottom: 20px;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), #f05a28);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1rem; color: #0a0a0f;
+  }
+  .author-name { font-size: 0.92rem; font-weight: 600; color: var(--white); }
+  .author-role { font-size: 0.78rem; color: var(--grey); }
+
+  /* ===== FORMATIONS ===== */
+  #formations { background: var(--dark); }
+  .formations-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 768px) { .formations-grid { grid-template-columns: 1fr; } }
+  .formation-card {
+    background: var(--dark-3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.3s;
+  }
+  .formation-card:hover { border-color: rgba(240,180,41,0.25); transform: translateY(-4px); }
+  .formation-badge {
+    display: inline-block;
+    background: rgba(50,200,120,0.1);
+    color: #32c878;
+    border: 1px solid rgba(50,200,120,0.3);
+    border-radius: 50px;
+    padding: 4px 12px;
+    font-size: 0.72rem; font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.06em;
+  }
+  .formation-icon { font-size: 2rem; margin-bottom: 12px; }
+  .formation-card h3 { color: var(--white); font-size: 1.1rem; margin-bottom: 10px; }
+  .formation-card p { font-size: 0.88rem; }
+  .formation-meta {
+    display: flex; gap: 16px; margin-top: 16px;
+    padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .meta-item { font-size: 0.8rem; color: var(--grey); display: flex; align-items: center; gap: 5px; }
+
+  /* ===== CTA BANNER ===== */
+  #cta-banner {
+    background: linear-gradient(135deg, #1a1408 0%, #0f0f18 100%);
+    border-top: 1px solid rgba(240,180,41,0.1);
+    border-bottom: 1px solid rgba(240,180,41,0.1);
+    padding: 80px 0;
+    position: relative; overflow: hidden;
+  }
+  #cta-banner::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(240,180,41,0.08) 0%, transparent 70%);
+  }
+  .cta-inner { text-align: center; position: relative; z-index: 1; }
+  .cta-inner h2 { margin-bottom: 16px; }
+  .cta-inner p { max-width: 500px; margin: 0 auto 36px; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #07070c;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 60px 0 30px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
+  }
+  @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  .footer-brand .logo {
+    font-size: 1.3rem; font-weight: 800; color: var(--white);
+    letter-spacing: -0.04em; margin-bottom: 14px;
+    display: block;
+  }
+  .footer-brand .logo span { color: var(--gold); }
+  .footer-brand p { font-size: 0.85rem; line-height: 1.7; color: var(--grey); }
+  .footer-col h4 { color: var(--white); font-size: 0.88rem; font-weight: 600; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .footer-col ul a { color: var(--grey); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p { font-size: 0.8rem; color: #555568; }
+  .footer-legal { display: flex; gap: 20px; }
+  .footer-legal a { color: #555568; text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+  .footer-legal a:hover { color: var(--grey); }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240,180,41,0.2), transparent);
+    margin: 0;
+  }
+
+  /* ===== FLOATING NAV SCROLL ===== */
+  nav.scrolled {
+    background: #ffffff;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg width="42" height="32" viewBox="0 0 42 32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="7" height="28" rx="2" fill="#1a1a2e"/>
+        <rect x="13" y="8" width="7" height="22" rx="2" fill="#1a1a2e"/>
+        <rect x="24" y="2" width="7" height="28" rx="2" fill="#1a1a2e"/>
+        <rect x="35" y="10" width="5" height="12" rx="2" fill="#2b5540"/>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="#solutions" class="bordered">Solutions <svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu mega-menu--solutions">
+          <div class="mega-grid mega-grid--2col">
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon green">🚀</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">Besoin de nouvelles leads <span class="mega-tag">Populaire</span></div>
+                <div class="mega-item-desc">Faites grandir votre entreprise à votre rythme et soyez dans la boîte mail de vos prospects.</div>
+              </div>
+            </a>
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon purple">📊</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">Comprendre mes données</div>
+                <div class="mega-item-desc">Vous avez des données mais n'avez pas pour habitude de prendre des décisions en fonction d'elles.</div>
+              </div>
+            </a>
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon blue">⚡</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">Traiter mes leads efficacement</div>
+                <div class="mega-item-desc">Vous avez des leads entrantes mais vous avez besoin d'une meilleure gestion et d'un suivi automatisé.</div>
+              </div>
+            </a>
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon teal">🔍</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">Besoin d'un audit Global</div>
+                <div class="mega-item-desc">Vous n'arrivez pas encore à avoir une vision claire des actions à mener pour faire grandir votre entreprise.</div>
+              </div>
+            </a>
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon orange">🤖</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">Gagner du temps sur mes process</div>
+                <div class="mega-item-desc">Vous avez beaucoup de double saisie et des tâches redondantes et vous aimeriez gagner du temps.</div>
+              </div>
+            </a>
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon pink">🎯</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">Pages de ventes</div>
+                <div class="mega-item-desc">Vous avez besoin d'une présence personnalisée pour toucher et convaincre vos prospects (+23% de conversion).</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="#formations">Formations <svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu mega-menu--formations">
+          <div class="mega-grid mega-grid--1col">
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon blue">📈</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">Google Analytics 4</div>
+                <div class="mega-item-desc">Maîtrisez GA4 de A à Z : configuration, rapports personnalisés, événements et conversions.</div>
+              </div>
+            </a>
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon orange">📬</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">ActiveCampaign</div>
+                <div class="mega-item-desc">Automatisez votre marketing et votre CRM. Séquences, scoring, segmentation et reporting.</div>
+              </div>
+            </a>
+            <a href="#" class="mega-item">
+              <div class="mega-item-icon green">🔗</div>
+              <div class="mega-item-text">
+                <div class="mega-item-title">HubSpot CRM</div>
+                <div class="mega-item-desc">Pipeline commercial, marketing automation, reporting et intégrations avancées.</div>
+              </div>
+            </a>
+          </div>
+          <div class="mega-divider"></div>
+          <div class="mega-footer">
+            <span class="mega-footer-icon">🎓</span> Toutes nos formations sont certifiées <strong style="color:#1a1a2e;margin-left:4px;">QUALIOPI</strong>
+          </div>
+        </div>
+      </li>
+      <li><a href="#">Qui suis-je ?</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#cta-banner" class="btn-nav">Prendre Rendez-vous</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-grid">
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">Croissance B2B automatisée</div>
+        <h1 class="hero-title">
+          Votre Croissance<br>
+          B2B <span class="accent">Automatisée</span>
+        </h1>
+        <p class="hero-desc">Des offres packagées ou personnalisées en fonction de vos besoins et budget. Générez plus de leads, automatisez vos process, pilotez vos données.</p>
+        <div class="hero-actions">
+          <a href="#cta-banner" class="btn-primary">Demande de rappel →</a>
+          <a href="#solutions" class="btn-outline">Voir les solutions</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">186<span>k</span></div>
+            <div class="stat-label">Mails envoyés</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">10<span>x</span></div>
+            <div class="stat-label">Ventes effectives en moyenne</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50<span>+</span></div>
+            <div class="stat-label">Clients accompagnés</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div style="font-size:0.78rem;color:var(--grey);margin-bottom:20px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Dashboard en temps réel</div>
+          <div class="metric-row">
+            <div class="metric-icon yellow">📧</div>
+            <div>
+              <div class="metric-label">Mails envoyés ce mois</div>
+              <div class="metric-value">14 820</div>
+            </div>
+            <div class="metric-delta">+18%</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-icon blue">🎯</div>
+            <div>
+              <div class="metric-label">Taux d'ouverture</div>
+              <div class="metric-value">42.3%</div>
+            </div>
+            <div class="metric-delta">+6%</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-icon green">💰</div>
+            <div>
+              <div class="metric-label">Leads qualifiés</div>
+              <div class="metric-value">312</div>
+            </div>
+            <div class="metric-delta">+24%</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SOLUTIONS ===== -->
+<section id="solutions">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Nos solutions</div>
+      <h2>Ce que vous pouvez accomplir</h2>
+      <p>Des solutions ciblées pour chaque besoin de votre croissance B2B.</p>
+    </div>
+    <div class="solutions-grid">
+
+      <div class="solution-card popular">
+        <div class="solution-icon">🚀</div>
+        <h3>Besoin de nouvelles leads</h3>
+        <p>Stratégie de prospection multicanale : email, LinkedIn, cold outreach automatisé pour remplir votre pipeline.</p>
+        <a href="#" class="solution-link">En savoir plus →</a>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-icon">⚡</div>
+        <h3>Traiter mes leads efficacement</h3>
+        <p>CRM configuré, séquences de nurturing et scoring automatique pour ne rater aucune opportunité.</p>
+        <a href="#" class="solution-link">En savoir plus →</a>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-icon">🤖</div>
+        <h3>Gagner du temps sur mes process</h3>
+        <p>Automatisation de tâches répétitives, intégrations entre vos outils, workflows intelligents.</p>
+        <a href="#" class="solution-link">En savoir plus →</a>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-icon">📊</div>
+        <h3>Comprendre mes données</h3>
+        <p>Tableaux de bord sur mesure, suivi des KPIs business, audit data pour des décisions éclairées.</p>
+        <a href="#" class="solution-link">En savoir plus →</a>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-icon">🔍</div>
+        <h3>Besoin d'un audit global</h3>
+        <p>Analyse complète de votre stratégie marketing, vos outils et vos processus pour identifier les leviers de croissance.</p>
+        <a href="#" class="solution-link">En savoir plus →</a>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-icon">🎯</div>
+        <h3>Pages de ventes</h3>
+        <p>Landing pages optimisées conversion, copywriting persuasif et tunnels de vente qui convertissent.</p>
+        <a href="#" class="solution-link">En savoir plus →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== RESULTS ===== -->
+<section id="results">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Nos résultats</div>
+      <h2>Des chiffres qui parlent</h2>
+      <p>Ce que nos clients obtiennent en travaillant avec Devinblack.</p>
+    </div>
+    <div class="results-grid">
+      <div class="result-item">
+        <div class="result-number">186k</div>
+        <div class="result-label">Mails envoyés</div>
+      </div>
+      <div class="result-item">
+        <div class="result-number">10x</div>
+        <div class="result-label">Ventes effectives en moyenne</div>
+      </div>
+      <div class="result-item">
+        <div class="result-number">50+</div>
+        <div class="result-label">Clients accompagnés</div>
+      </div>
+      <div class="result-item">
+        <div class="result-number">98%</div>
+        <div class="result-label">Taux de satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SERVICES DETAILS ===== -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Expertises</div>
+      <h2>Nos domaines d'expertise</h2>
+      <p>Un accompagnement complet sur les 4 piliers de votre croissance B2B.</p>
+    </div>
+
+    <div class="services-list">
+
+      <!-- Service 1 -->
+      <div class="service-row">
+        <div class="service-visual">
+          <div class="service-visual-icon">📧</div>
+          <div class="service-visual-label">Campagnes email & LinkedIn automatisées</div>
+        </div>
+        <div class="service-content">
+          <div class="badge">Marketing B2B</div>
+          <h2>Marketing B2B Innovant</h2>
+          <p>Des campagnes de prospection multicanales conçues pour générer des leads qualifiés en continu. Automatisation intelligente, personnalisation à grande échelle.</p>
+          <ul class="service-features">
+            <li>Cold emailing automatisé et personnalisé</li>
+            <li>Prospection LinkedIn sur-mesure</li>
+            <li>Séquences de nurturing multicanal</li>
+            <li>Stratégie de contenu B2B</li>
+          </ul>
+          <a href="#cta-banner" class="btn-primary">Discutons de votre projet →</a>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-row reverse">
+        <div class="service-visual">
+          <div class="service-visual-icon">📈</div>
+          <div class="service-visual-label">Tableaux de bord & visualisation data</div>
+        </div>
+        <div class="service-content">
+          <div class="badge">Data & Analytics</div>
+          <h2>Tableau de bord & Audit Data</h2>
+          <p>Transformez vos données brutes en insights actionnables. Des dashboards sur mesure qui vous permettent de piloter votre croissance en temps réel.</p>
+          <ul class="service-features">
+            <li>Audit de votre infrastructure data</li>
+            <li>Tableaux de bord Google Analytics 4</li>
+            <li>Suivi des KPIs business en temps réel</li>
+            <li>Reporting automatisé et alertes</li>
+          </ul>
+          <a href="#cta-banner" class="btn-primary">Auditer mes données →</a>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-row">
+        <div class="service-visual">
+          <div class="service-visual-icon">⚙️</div>
+          <div class="service-visual-label">CRM & automatisations intelligentes</div>
+        </div>
+        <div class="service-content">
+          <div class="badge">CRM & Automatisation</div>
+          <h2>CRM & Automatisations</h2>
+          <p>Configurez votre CRM pour qu'il travaille à votre place. Des automatisations qui font avancer vos prospects dans votre tunnel sans effort manuel.</p>
+          <ul class="service-features">
+            <li>Configuration HubSpot & ActiveCampaign</li>
+            <li>Automatisation du cycle de vente</li>
+            <li>Scoring et segmentation des leads</li>
+            <li>Intégrations entre vos outils métiers</li>
+          </ul>
+          <a href="#cta-banner" class="btn-primary">Automatiser mon CRM →</a>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-row reverse">
+        <div class="service-visual">
+          <div class="service-visual-icon">🎯</div>
+          <div class="service-visual-label">Landing pages haute conversion</div>
+        </div>
+        <div class="service-content">
+          <div class="badge">Pages de ventes</div>
+          <h2>Pages de ventes haute conversion</h2>
+          <p>Des landing pages conçues pour convertir. Copywriting percutant, design optimisé et tunnels de vente qui transforment vos visiteurs en clients.</p>
+          <ul class="service-features">
+            <li>Copywriting B2B persuasif</li>
+            <li>Design orienté conversion</li>
+            <li>Tests A/B et optimisation continue</li>
+            <li>Intégration avec votre CRM</li>
+          </ul>
+          <a href="#cta-banner" class="btn-primary">Créer ma page de vente →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== PACKAGES ===== -->
+<section id="packages">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Offres packagées</div>
+      <h2>Choisissez votre package</h2>
+      <p>Des offres clés en main pour démarrer rapidement, avec un accompagnement sur mesure.</p>
+    </div>
+    <div class="packages-grid">
+
+      <div class="package-card">
+        <div class="package-name">Starter</div>
+        <div class="package-title">Lancer ma prospection</div>
+        <div class="package-desc">Idéal pour les entreprises qui souhaitent lancer leur première stratégie de prospection B2B automatisée.</div>
+        <ul class="package-features">
+          <li><span>✦</span> Audit de votre situation actuelle</li>
+          <li><span>✦</span> Mise en place du cold emailing</li>
+          <li><span>✦</span> Séquence de 5 emails personnalisés</li>
+          <li><span>✦</span> Dashboard de suivi des résultats</li>
+          <li><span>✦</span> 1 mois de support inclus</li>
+        </ul>
+        <a href="#cta-banner" class="btn-outline" style="width:100%;justify-content:center;">Commencer →</a>
+      </div>
+
+      <div class="package-card featured">
+        <div class="package-name">Growth</div>
+        <div class="package-title">Accélérer ma croissance</div>
+        <div class="package-desc">Le pack complet pour les entreprises prêtes à passer au niveau supérieur avec une stratégie multicanale.</div>
+        <ul class="package-features">
+          <li><span>✦</span> Tout le pack Starter inclus</li>
+          <li><span>✦</span> Prospection LinkedIn automatisée</li>
+          <li><span>✦</span> Configuration CRM complète</li>
+          <li><span>✦</span> Automatisations de nurturing</li>
+          <li><span>✦</span> Page de vente optimisée</li>
+          <li><span>✦</span> 3 mois de suivi et optimisation</li>
+        </ul>
+        <a href="#cta-banner" class="btn-primary" style="width:100%;justify-content:center;">Je veux ce pack →</a>
+      </div>
+
+      <div class="package-card">
+        <div class="package-name">Enterprise</div>
+        <div class="package-title">Offre personnalisée</div>
+        <div class="package-desc">Pour les entreprises avec des besoins spécifiques. On construit ensemble votre stratégie sur mesure.</div>
+        <ul class="package-features">
+          <li><span>✦</span> Audit global de votre marketing</li>
+          <li><span>✦</span> Stratégie 360° personnalisée</li>
+          <li><span>✦</span> Implémentation complète</li>
+          <li><span>✦</span> Formation de vos équipes</li>
+          <li><span>✦</span> Accompagnement long terme</li>
+        </ul>
+        <a href="#cta-banner" class="btn-outline" style="width:100%;justify-content:center;">Discutons →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== PROCESS ===== -->
+<section id="process">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Comment ça marche</div>
+      <h2>3 étapes pour démarrer</h2>
+      <p>Un processus simple et éprouvé pour transformer votre croissance B2B.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <h3>Diagnostic gratuit</h3>
+        <p>On analyse votre situation actuelle, vos objectifs et vos contraintes lors d'un appel de 30 minutes sans engagement.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <h3>Stratégie sur mesure</h3>
+        <p>On vous propose un plan d'action personnalisé avec les solutions les mieux adaptées à vos besoins et votre budget.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <h3>Implémentation & suivi</h3>
+        <p>On déploie les solutions, on forme vos équipes et on suit vos résultats pour optimiser en continu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Témoignages</div>
+      <h2>Ils nous font confiance</h2>
+      <p>Découvrez ce que nos clients disent de leur expérience avec Devinblack.</p>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"Devinblack a complètement transformé notre prospection B2B. En 3 mois, on a multiplié par 4 le nombre de leads qualifiés. Un professionnalisme remarquable et une vraie expertise marketing."</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div>
+            <div class="author-name">Morgan L.</div>
+            <div class="author-role">Directeur Commercial, SaaS B2B</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"La mise en place du CRM et des automatisations nous a fait gagner un temps précieux. L'équipe est réactive, enthousiaste et vraiment investie dans nos résultats. Je recommande à 100%."</div>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background: linear-gradient(135deg, #5080f0, #8040f0);">M</div>
+          <div>
+            <div class="author-name">Michael D.</div>
+            <div class="author-role">CEO, Agence de conseil</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"Enfin une agence qui comprend les enjeux B2B ! La page de vente qu'ils ont créée convertit à 12%. Les tableaux de bord sont clairs et je comprends enfin mes données. Merci Devinblack !"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background: linear-gradient(135deg, #32c878, #20a0f0);">S</div>
+          <div>
+            <div class="author-name">Sonia M.</div>
+            <div class="author-role">Fondatrice, Cabinet RH</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== FORMATIONS ===== -->
+<section id="formations">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Formations</div>
+      <h2>Montez en compétences</h2>
+      <p>Des formations certifiées QUALIOPI avec un suivi de 3 mois après votre formation.</p>
+    </div>
+    <div class="formations-grid">
+
+      <div class="formation-card">
+        <div class="formation-badge">QUALIOPI certifié</div>
+        <div class="formation-icon">📊</div>
+        <h3>Google Analytics 4</h3>
+        <p>Maîtrisez GA4 de A à Z : configuration, rapports personnalisés, événements, conversions et analyses avancées.</p>
+        <div class="formation-meta">
+          <div class="meta-item">⏱ 2 jours</div>
+          <div class="meta-item">🎓 Certification incluse</div>
+        </div>
+      </div>
+
+      <div class="formation-card">
+        <div class="formation-badge">QUALIOPI certifié</div>
+        <div class="formation-icon">📬</div>
+        <h3>ActiveCampaign</h3>
+        <p>Automatisez votre marketing et votre CRM avec ActiveCampaign. Séquences, scoring, segmentation et reporting.</p>
+        <div class="formation-meta">
+          <div class="meta-item">⏱ 2 jours</div>
+          <div class="meta-item">🎓 Certification incluse</div>
+        </div>
+      </div>
+
+      <div class="formation-card">
+        <div class="formation-badge">QUALIOPI certifié</div>
+        <div class="formation-icon">🔗</div>
+        <h3>HubSpot CRM</h3>
+        <p>Devenez expert HubSpot : pipeline commercial, marketing automation, reporting et intégrations avancées.</p>
+        <div class="formation-meta">
+          <div class="meta-item">⏱ 3 jours</div>
+          <div class="meta-item">🎓 Certification incluse</div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(50,200,120,0.08);border:1px solid rgba(50,200,120,0.2);border-radius:12px;padding:14px 24px;">
+        <span style="color:#32c878;font-size:1.2rem;">✓</span>
+        <span style="color:#aaaacc;font-size:0.9rem;">Toutes nos formations incluent <strong style="color:var(--white);">un suivi personnalisé de 3 mois</strong> après la formation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== CTA BANNER ===== -->
+<section id="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="badge">Passons à l'action</div>
+      <h2>Prêt à automatiser<br>votre croissance B2B ?</h2>
+      <p>Réservez un appel diagnostic gratuit de 30 minutes. On analyse votre situation et on vous propose un plan d'action concret, sans engagement.</p>
+      <div class="cta-actions">
+        <a href="mailto:contact@devinblack.fr" class="btn-primary" style="font-size:1rem;padding:16px 36px;">Prendre Rendez-vous →</a>
+        <a href="tel:+33000000000" class="btn-outline" style="font-size:1rem;padding:16px 36px;">📞 Demande de rappel</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Devin<span>black</span></span>
+        <p>Votre partenaire croissance B2B. Prospection automatisée, CRM, data et pages de ventes pour les entreprises ambitieuses.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="#">Nouvelles leads</a></li>
+          <li><a href="#">Traitement leads</a></li>
+          <li><a href="#">Automatisations</a></li>
+          <li><a href="#">Audit data</a></li>
+          <li><a href="#">Pages de ventes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Formations</h4>
+        <ul>
+          <li><a href="#">Google Analytics 4</a></li>
+          <li><a href="#">ActiveCampaign</a></li>
+          <li><a href="#">HubSpot CRM</a></li>
+          <li><a href="#">Espace clients</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Entreprise</h4>
+        <ul>
+          <li><a href="#">Qui suis-je ?</a></li>
+          <li><a href="#">Apporteur d'affaires</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Devinblack. Tous droits réservés.</p>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">CGU</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.solution-card, .testimonial-card, .package-card, .formation-card, .result-item, .process-step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
