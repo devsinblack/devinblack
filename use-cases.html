@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Use Cases Clients – Devinblack</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;color:#1a1a2e;line-height:1.6;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,0.04);padding:0 24px;}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-logo svg{display:block;}
+.nav-links{display:flex;gap:6px;align-items:center;}
+.nav-links>li{position:relative;}
+.nav-links>li>a{color:#1a1a2e;font-size:15px;font-weight:500;padding:9px 20px;display:inline-flex;align-items:center;gap:7px;border-radius:10px;transition:all .2s;}
+.nav-links>li>a:hover{background:#f5f5f5;}
+.nav-links>li>a.bordered{border:1.5px solid #d8d8d8;}
+.nav-links>li>a.active{color:#2b5540;font-weight:600;}
+.chevron{width:10px;height:6px;stroke:#1a1a2e;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s;}
+.nav-links>li:hover .chevron{transform:rotate(180deg);}
+.btn-nav{display:inline-flex;align-items:center;background:#2b5540;color:#fff;padding:12px 26px;border-radius:50px;font-weight:600;font-size:14px;border:none;cursor:pointer;transition:all .25s;white-space:nowrap;}
+.btn-nav:hover{background:#1e3d2e;transform:translateY(-1px);box-shadow:0 4px 16px rgba(43,85,64,.3);}
+.mega-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px);background:#fff;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.04);padding:28px 32px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;z-index:200;}
+.mega-menu::before{content:'';position:absolute;top:-12px;left:0;right:0;height:12px;}
+.nav-links>li:hover>.mega-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.mega-menu--solutions{width:680px;}.mega-menu--formations{width:480px;}
+.mega-grid{display:grid;gap:4px;}.mega-grid--2col{grid-template-columns:1fr 1fr;}.mega-grid--1col{grid-template-columns:1fr;}
+.mega-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:12px;transition:background .18s;cursor:pointer;}
+.mega-item:hover{background:#f5f7f6;}
+.mega-item-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+.mega-item-icon.green{background:#eaf5ef;}.mega-item-icon.purple{background:#f0edf7;}.mega-item-icon.blue{background:#edf2fb;}.mega-item-icon.orange{background:#fdf1e8;}.mega-item-icon.teal{background:#e8f4f4;}.mega-item-icon.pink{background:#fceef2;}
+.mega-item-title{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;display:flex;align-items:center;gap:8px;}
+.mega-item-desc{font-size:12.5px;color:#6b7280;line-height:1.5;}
+.mega-tag{display:inline-block;background:#2b5540;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;}
+.mega-divider{height:1px;background:#eee;margin:12px 0;}
+.mega-footer{display:flex;align-items:center;gap:8px;padding:12px 16px 0;font-size:12.5px;color:#6b7280;}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+
+/* HERO */
+#hero{padding:140px 0 60px;background:#fff;}
+.hero-center{text-align:center;max-width:700px;margin:0 auto;}
+.hero-tag{display:inline-block;background:#eaf5ef;color:#2b5540;font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:50px;letter-spacing:.04em;margin-bottom:20px;}
+.hero-title{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:20px;}
+.hero-desc{font-size:1.05rem;color:#6b7280;line-height:1.7;max-width:560px;margin:0 auto;}
+
+/* FILTERS */
+#filters{padding:40px 0 20px;}
+.filters-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.filter-btn{padding:9px 20px;border-radius:50px;font-size:.85rem;font-weight:500;border:1.5px solid #e0e0e0;background:#fff;color:#6b7280;cursor:pointer;transition:all .2s;font-family:inherit;}
+.filter-btn:hover,.filter-btn.active{background:#2b5540;color:#fff;border-color:#2b5540;}
+
+/* USE CASES GRID */
+#cases{padding:40px 0 100px;}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.case-card{background:#fff;border:1px solid #eee;border-radius:20px;overflow:hidden;transition:all .3s;cursor:pointer;}
+.case-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.1);border-color:#2b5540;}
+.case-card-img{height:220px;overflow:hidden;position:relative;background:#f0f0f0;}
+.case-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.case-card:hover .case-card-img img{transform:scale(1.05);}
+.case-card-tag{position:absolute;top:16px;left:16px;background:#fff;color:#2b5540;font-size:.72rem;font-weight:600;padding:5px 12px;border-radius:50px;letter-spacing:.03em;box-shadow:0 2px 8px rgba(0,0,0,.1);}
+.case-card-body{padding:24px;}
+.case-card-body h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;color:#1a1a2e;line-height:1.3;}
+.case-card-body p{font-size:.88rem;color:#6b7280;line-height:1.6;margin-bottom:16px;}
+.case-meta{display:flex;gap:16px;padding-top:16px;border-top:1px solid #f0f0f0;}
+.case-meta-item{font-size:.78rem;color:#9ca3af;display:flex;align-items:center;gap:5px;}
+.case-meta-item strong{color:#1a1a2e;font-weight:600;}
+.case-card-link{display:inline-flex;align-items:center;gap:6px;color:#2b5540;font-weight:600;font-size:.85rem;transition:gap .2s;}
+.case-card-link:hover{gap:10px;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:80px 32px;background:#f8f9fa;border-radius:20px;border:2px dashed #e0e0e0;}
+.empty-state-icon{font-size:3rem;margin-bottom:16px;}
+.empty-state h3{font-size:1.2rem;font-weight:700;margin-bottom:8px;}
+.empty-state p{font-size:.9rem;color:#6b7280;max-width:400px;margin:0 auto;}
+
+/* CTA */
+#cta-banner{background:#1a2e22;padding:60px 0;position:relative;overflow:hidden;}
+#cta-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#2b5540,#1a2e22);}
+.cta-inner{position:relative;z-index:1;text-align:center;color:#fff;}
+.cta-inner h2{font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:700;margin-bottom:12px;}
+.cta-inner p{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;}
+.cta-form{display:flex;gap:0;max-width:500px;margin:0 auto;}
+.cta-form input{flex:1;padding:14px 20px;border:none;border-radius:12px 0 0 12px;font-size:14px;font-family:inherit;outline:none;}
+.cta-form button{padding:14px 24px;background:#f0b429;color:#1a1a2e;border:none;border-radius:0 12px 12px 0;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.cta-form button:hover{background:#ffd166;}
+
+/* FOOTER */
+footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand p{font-size:.82rem;line-height:1.7;margin-top:14px;}
+.footer-col h4{color:#fff;font-size:.85rem;font-weight:600;margin-bottom:16px;}
+.footer-col ul{display:flex;flex-direction:column;gap:9px;}
+.footer-col ul a{color:#8888a0;font-size:.82rem;transition:color .2s;}
+.footer-col ul a:hover{color:#2b5540;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:.78rem;color:#555568;}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{color:#555568;font-size:.78rem;transition:color .2s;}
+.footer-legal a:hover{color:#8888a0;}
+
+@media(max-width:900px){
+  .cases-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  nav .nav-links{display:none;}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="42" height="32" viewBox="0 0 42 32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="7" height="28" rx="2" fill="#1a1a2e"/>
+        <rect x="13" y="8" width="7" height="22" rx="2" fill="#1a1a2e"/>
+        <rect x="24" y="2" width="7" height="28" rx="2" fill="#1a1a2e"/>
+        <rect x="35" y="10" width="5" height="12" rx="2" fill="#2b5540"/>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="#" class="bordered">Solutions <svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu mega-menu--solutions">
+          <div class="mega-grid mega-grid--2col">
+            <a href="recherche-leads.html" class="mega-item"><div class="mega-item-icon green">&#128640;</div><div class="mega-item-text"><div class="mega-item-title">Besoin de nouvelles leads <span class="mega-tag">Populaire</span></div><div class="mega-item-desc">Faites grandir votre entreprise et soyez dans la boite mail de vos prospects.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon purple">&#128202;</div><div class="mega-item-text"><div class="mega-item-title">Comprendre mes donnees</div><div class="mega-item-desc">Prenez des decisions basees sur vos donnees.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon blue">&#9889;</div><div class="mega-item-text"><div class="mega-item-title">Traiter mes leads efficacement</div><div class="mega-item-desc">Meilleure gestion et suivi automatise.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon teal">&#128269;</div><div class="mega-item-text"><div class="mega-item-title">Besoin d'un audit Global</div><div class="mega-item-desc">Vision claire des actions a mener.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon orange">&#129302;</div><div class="mega-item-text"><div class="mega-item-title">Gagner du temps sur mes process</div><div class="mega-item-desc">Eliminez la double saisie et les taches redondantes.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon pink">&#127919;</div><div class="mega-item-text"><div class="mega-item-title">Pages de ventes</div><div class="mega-item-desc">Presence personnalisee pour convertir.</div></div></a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="#">Formations <svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu mega-menu--formations">
+          <div class="mega-grid mega-grid--1col">
+            <a href="formation-ga4.html" class="mega-item"><div class="mega-item-icon blue">&#128200;</div><div class="mega-item-text"><div class="mega-item-title">Google Analytics 4</div><div class="mega-item-desc">Maitrisez GA4 de A a Z.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon orange">&#128236;</div><div class="mega-item-text"><div class="mega-item-title">ActiveCampaign</div><div class="mega-item-desc">Automatisez votre marketing et CRM.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon green">&#128279;</div><div class="mega-item-text"><div class="mega-item-title">HubSpot CRM</div><div class="mega-item-desc">Pipeline commercial et automation.</div></div></a>
+          </div>
+          <div class="mega-divider"></div>
+          <div class="mega-footer"><span>&#127891;</span> Formations certifiees <strong style="color:#1a1a2e;margin-left:4px;">QUALIOPI</strong></div>
+        </div>
+      </li>
+      <li><a href="use-cases.html" class="active">Use Case</a></li>
+      <li><a href="#">Qui suis-je ?</a></li>
+    </ul>
+    <div><a href="#cta-banner" class="btn-nav">Prendre Rendez-vous</a></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-center">
+      <div class="hero-tag">&#128161; Etudes de cas</div>
+      <h1 class="hero-title">Nos Use Cases clients</h1>
+      <p class="hero-desc">Decouvrez comment nous avons aide nos clients a atteindre leurs objectifs de croissance B2B. Des resultats concrets, des strategies eprouvees.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<section id="filters">
+  <div class="container">
+    <div class="filters-row">
+      <button class="filter-btn active">Tous</button>
+      <button class="filter-btn">Prospection</button>
+      <button class="filter-btn">CRM &amp; Automatisation</button>
+      <button class="filter-btn">Data &amp; Analytics</button>
+      <button class="filter-btn">Pages de ventes</button>
+      <button class="filter-btn">Formations</button>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="cases">
+  <div class="container">
+    <div class="cases-grid">
+
+      <!-- Use Case 1 - Exemple -->
+      <a href="#" class="case-card">
+        <div class="case-card-img">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=500&h=300&fit=crop" alt="SaaS B2B prospection">
+          <span class="case-card-tag">Prospection</span>
+        </div>
+        <div class="case-card-body">
+          <h3>SaaS B2B : de 0 a 200 leads qualifies en 3 mois</h3>
+          <p>Mise en place d'une strategie de cold emailing multicanale pour une startup SaaS B2B. Resultats : 200 leads qualifies et 15 clients signes.</p>
+          <div class="case-meta">
+            <div class="case-meta-item"><strong>+200</strong> leads</div>
+            <div class="case-meta-item"><strong>15</strong> clients signes</div>
+            <div class="case-meta-item"><strong>3</strong> mois</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Use Case 2 - Exemple -->
+      <a href="#" class="case-card">
+        <div class="case-card-img">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop" alt="Dashboard data analytics">
+          <span class="case-card-tag">Data &amp; Analytics</span>
+        </div>
+        <div class="case-card-body">
+          <h3>Cabinet de conseil : pilotage data en temps reel</h3>
+          <p>Audit data complet et mise en place de tableaux de bord GA4 personnalises pour un cabinet de conseil en transformation digitale.</p>
+          <div class="case-meta">
+            <div class="case-meta-item"><strong>+45%</strong> visibilite</div>
+            <div class="case-meta-item"><strong>6</strong> dashboards</div>
+            <div class="case-meta-item"><strong>2</strong> mois</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Use Case 3 - Exemple -->
+      <a href="#" class="case-card">
+        <div class="case-card-img">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop" alt="CRM automatisation equipe">
+          <span class="case-card-tag">CRM &amp; Automatisation</span>
+        </div>
+        <div class="case-card-body">
+          <h3>Agence RH : automatisation complete du cycle de vente</h3>
+          <p>Configuration HubSpot CRM, scoring automatique des leads et sequences de nurturing pour une agence de recrutement B2B.</p>
+          <div class="case-meta">
+            <div class="case-meta-item"><strong>x3</strong> conversion</div>
+            <div class="case-meta-item"><strong>-60%</strong> temps manuel</div>
+            <div class="case-meta-item"><strong>4</strong> mois</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Texte indicatif pour les futurs use cases -->
+    <div style="margin-top:48px;">
+      <div class="empty-state">
+        <div class="empty-state-icon">&#128640;</div>
+        <h3>D'autres use cases arrivent bientot</h3>
+        <p>Nous documentons regulierement de nouvelles etudes de cas clients. Revenez bientot pour decouvrir nos derniers succes.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section id="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Vous n'etes pas sur de votre besoin ?</h2>
+      <p>Prenez rendez-vous gratuit de 30 minutes pour expliquer vos objectifs et possibilites.</p>
+      <div class="cta-form">
+        <input type="text" placeholder="Selectionnez une information">
+        <button>Demande de rappel</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg width="42" height="32" viewBox="0 0 42 32" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="7" height="28" rx="2" fill="#fff"/>
+          <rect x="13" y="8" width="7" height="22" rx="2" fill="#fff"/>
+          <rect x="24" y="2" width="7" height="28" rx="2" fill="#fff"/>
+          <rect x="35" y="10" width="5" height="12" rx="2" fill="#2b5540"/>
+        </svg>
+        <p>Une methodologie eprouvee et professionnalisee dans la croissance, marketing et data B2B.</p>
+      </div>
+      <div class="footer-col"><h4>Solutions</h4><ul><li><a href="recherche-leads.html">Recherche de leads</a></li><li><a href="#">Traitement des leads</a></li><li><a href="#">Donnees de conversion</a></li><li><a href="#">Besoin d'un Audit</a></li></ul></div>
+      <div class="footer-col"><h4>Apporteur d'Affaires</h4><ul><li><a href="#">Je suis une Agence</a></li><li><a href="#">Je suis Freelance</a></li></ul></div>
+      <div class="footer-col"><h4>Formations</h4><ul><li><a href="formation-ga4.html">Formation Google Analytics 4</a></li><li><a href="#">Formation ActiveCampaign</a></li><li><a href="#">Formation HubSpot</a></li></ul></div>
+      <div class="footer-col"><h4>Espace Clients</h4><ul><li><a href="#">Espace de Tickets</a></li><li><a href="#">Chat Messenger</a></li><li><a href="#">Suivi mes Factures</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 - Devinblack Stephane Aminaux</p>
+      <div class="footer-legal"><a href="#">Politique de confidentialite</a><a href="#">Conditions de services</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Filter buttons interaction
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
