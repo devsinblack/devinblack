@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Use Case – KPMG / RYDGE | Devinblack</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;color:#1a1a2e;line-height:1.6;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,0.04);padding:0 24px;}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-logo svg{display:block;}
+.nav-links{display:flex;gap:6px;align-items:center;}
+.nav-links>li{position:relative;}
+.nav-links>li>a{color:#1a1a2e;font-size:15px;font-weight:500;padding:9px 20px;display:inline-flex;align-items:center;gap:7px;border-radius:10px;transition:all .2s;}
+.nav-links>li>a:hover{background:#f5f5f5;}
+.nav-links>li>a.bordered{border:1.5px solid #d8d8d8;}
+.chevron{width:10px;height:6px;stroke:#1a1a2e;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s;}
+.nav-links>li:hover .chevron{transform:rotate(180deg);}
+.btn-nav{display:inline-flex;align-items:center;background:#2b5540;color:#fff;padding:12px 26px;border-radius:50px;font-weight:600;font-size:14px;border:none;cursor:pointer;transition:all .25s;white-space:nowrap;}
+.btn-nav:hover{background:#1e3d2e;transform:translateY(-1px);box-shadow:0 4px 16px rgba(43,85,64,.3);}
+.mega-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px);background:#fff;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.04);padding:28px 32px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;z-index:200;}
+.mega-menu::before{content:'';position:absolute;top:-12px;left:0;right:0;height:12px;}
+.nav-links>li:hover>.mega-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.mega-menu--solutions{width:680px;}.mega-menu--formations{width:480px;}
+.mega-grid{display:grid;gap:4px;}.mega-grid--2col{grid-template-columns:1fr 1fr;}.mega-grid--1col{grid-template-columns:1fr;}
+.mega-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:12px;transition:background .18s;cursor:pointer;}
+.mega-item:hover{background:#f5f7f6;}
+.mega-item-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+.mega-item-icon.green{background:#eaf5ef;}.mega-item-icon.purple{background:#f0edf7;}.mega-item-icon.blue{background:#edf2fb;}.mega-item-icon.orange{background:#fdf1e8;}.mega-item-icon.teal{background:#e8f4f4;}.mega-item-icon.pink{background:#fceef2;}
+.mega-item-title{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;display:flex;align-items:center;gap:8px;}
+.mega-item-desc{font-size:12.5px;color:#6b7280;line-height:1.5;}
+.mega-tag{display:inline-block;background:#2b5540;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;}
+.mega-divider{height:1px;background:#eee;margin:12px 0;}
+.mega-footer{display:flex;align-items:center;gap:8px;padding:12px 16px 0;font-size:12.5px;color:#6b7280;}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+
+/* BREADCRUMB */
+.breadcrumb{padding-top:88px;padding-bottom:0;font-size:.82rem;color:#9ca3af;}
+.breadcrumb a{color:#2b5540;font-weight:500;transition:opacity .2s;}
+.breadcrumb a:hover{opacity:.7;}
+.breadcrumb span{margin:0 8px;}
+
+/* CONTEXT BANNER */
+.context-banner{margin-top:24px;background:linear-gradient(135deg,#f0f4ff,#faf5ff);border:1px solid #e0e7ff;border-radius:16px;padding:20px 28px;display:flex;align-items:center;gap:16px;}
+.context-banner-icon{width:48px;height:48px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.context-banner-text{font-size:.88rem;color:#4b5563;line-height:1.6;}
+.context-banner-text strong{color:#1a1a2e;}
+
+/* HERO */
+#hero{padding:40px 0 60px;}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;padding:5px 14px;border-radius:50px;letter-spacing:.03em;}
+.hero-tag img{height:14px;width:auto;}
+.hero-tag.hubspot{background:#ffe4e6;color:#e11d48;}
+.hero-tag.salesforce{background:#e0f2fe;color:#0369a1;}
+.hero-tag.migration{background:#fef3c7;color:#b45309;}
+.hero-tag.formation{background:#ecfdf5;color:#047857;}
+.client-name{font-size:.9rem;font-weight:600;color:#2b5540;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.hero-title{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-bottom:20px;}
+.hero-desc{font-size:1rem;color:#6b7280;line-height:1.7;margin-bottom:28px;}
+.hero-img{border-radius:20px;overflow:hidden;aspect-ratio:16/10;background:#f0f0f0;}
+.hero-img img{width:100%;height:100%;object-fit:cover;}
+
+/* STATS */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#eee;border-radius:16px;overflow:hidden;margin-bottom:60px;}
+.stat-item{background:#f8f9fa;padding:28px 24px;text-align:center;}
+.stat-number{font-size:1.6rem;font-weight:800;color:#2b5540;letter-spacing:-.03em;margin-bottom:4px;}
+.stat-label{font-size:.78rem;color:#6b7280;}
+
+/* MISSIONS */
+#missions{padding:60px 0 100px;}
+.missions-title{font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:800;letter-spacing:-.02em;margin-bottom:12px;}
+.missions-desc{font-size:.95rem;color:#6b7280;margin-bottom:48px;max-width:650px;}
+.mission-card{display:grid;grid-template-columns:auto 1fr;gap:24px;padding:32px;background:#f8f9fa;border:1px solid #eee;border-radius:20px;margin-bottom:24px;transition:all .3s;align-items:start;}
+.mission-card:hover{border-color:#2b5540;box-shadow:0 8px 32px rgba(0,0,0,.06);transform:translateY(-2px);}
+.mission-num{width:48px;height:48px;background:#2b5540;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;}
+.mission-body h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;color:#1a1a2e;line-height:1.3;}
+.mission-body p{font-size:.9rem;color:#6b7280;line-height:1.7;}
+.mission-tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.tool-badge{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;padding:4px 12px;border-radius:50px;}
+.tool-badge img{height:14px;width:auto;}
+.tool-badge.hubspot{background:#ffe4e6;color:#e11d48;}
+.tool-badge.salesforce{background:#e0f2fe;color:#0369a1;}
+.tool-badge.migration{background:#fef3c7;color:#b45309;}
+.tool-badge.formation{background:#ecfdf5;color:#047857;}
+.tool-badge.marketing{background:#ede9fe;color:#7c3aed;}
+.tool-badge.support{background:#fce7f3;color:#be185d;}
+.tool-badge.commercial{background:#fff7ed;color:#c2410c;}
+
+/* RESULTS */
+#results{padding:80px 0;background:#f8f9fa;}
+.results-header{text-align:center;margin-bottom:48px;}
+.results-header h2{font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:800;letter-spacing:-.02em;margin-bottom:12px;}
+.results-header p{font-size:.95rem;color:#6b7280;line-height:1.7;max-width:600px;margin:0 auto;}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.result-card{background:#fff;border:1px solid #eee;border-radius:16px;padding:24px;transition:all .3s;position:relative;overflow:hidden;}
+.result-card:hover{border-color:#2b5540;transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.06);}
+.result-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:#2b5540;border-radius:4px 0 0 4px;}
+.result-card-icon{width:40px;height:40px;background:#eaf5ef;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:14px;}
+.result-card p{font-size:.88rem;color:#1a1a2e;font-weight:500;line-height:1.5;}
+
+/* TOOLS */
+#tools{padding:80px 0;}
+.tools-title{font-size:1.2rem;font-weight:700;text-align:center;margin-bottom:40px;}
+.tools-row{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;}
+.tool-item{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.tool-icon{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;}
+.tool-icon img{height:32px;width:auto;}
+.tool-icon.rose{background:#ffe4e6;}
+.tool-icon.blue{background:#e0f2fe;}
+.tool-icon.green{background:#ecfdf5;}
+.tool-label{font-size:.82rem;font-weight:600;color:#1a1a2e;}
+
+/* CTA */
+#cta-banner{background:#1a2e22;padding:60px 0;position:relative;overflow:hidden;}
+#cta-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#2b5540,#1a2e22);}
+.cta-inner{position:relative;z-index:1;text-align:center;color:#fff;}
+.cta-inner h2{font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:700;margin-bottom:12px;}
+.cta-inner p{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:#f0b429;color:#1a1a2e;padding:14px 32px;border-radius:12px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;transition:all .25s;}
+.btn-primary:hover{background:#ffd166;transform:translateY(-1px);}
+.btn-outline-light{display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;padding:14px 32px;border-radius:12px;font-weight:600;font-size:.95rem;border:1.5px solid rgba(255,255,255,.3);cursor:pointer;transition:all .25s;}
+.btn-outline-light:hover{border-color:#fff;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand p{font-size:.82rem;line-height:1.7;margin-top:14px;}
+.footer-col h4{color:#fff;font-size:.85rem;font-weight:600;margin-bottom:16px;}
+.footer-col ul{display:flex;flex-direction:column;gap:9px;}
+.footer-col ul a{color:#8888a0;font-size:.82rem;transition:color .2s;}
+.footer-col ul a:hover{color:#2b5540;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:.78rem;color:#555568;}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{color:#555568;font-size:.78rem;transition:color .2s;}
+.footer-legal a:hover{color:#8888a0;}
+
+@media(max-width:900px){
+  .hero-grid,.stats-bar,.results-grid,.footer-grid{grid-template-columns:1fr;}
+  .mission-card{grid-template-columns:1fr;}
+  .context-banner{flex-direction:column;text-align:center;}
+  nav .nav-links{display:none;}
+  .stats-bar{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="42" height="32" viewBox="0 0 42 32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="7" height="28" rx="2" fill="#1a1a2e"/>
+        <rect x="13" y="8" width="7" height="22" rx="2" fill="#1a1a2e"/>
+        <rect x="24" y="2" width="7" height="28" rx="2" fill="#1a1a2e"/>
+        <rect x="35" y="10" width="5" height="12" rx="2" fill="#2b5540"/>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="#" class="bordered">Solutions <svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu mega-menu--solutions">
+          <div class="mega-grid mega-grid--2col">
+            <a href="recherche-leads.html" class="mega-item"><div class="mega-item-icon green">&#128640;</div><div class="mega-item-text"><div class="mega-item-title">Besoin de nouvelles leads <span class="mega-tag">Populaire</span></div><div class="mega-item-desc">Faites grandir votre entreprise et soyez dans la boite mail de vos prospects.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon purple">&#128202;</div><div class="mega-item-text"><div class="mega-item-title">Comprendre mes donnees</div><div class="mega-item-desc">Prenez des decisions basees sur vos donnees.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon blue">&#9889;</div><div class="mega-item-text"><div class="mega-item-title">Traiter mes leads efficacement</div><div class="mega-item-desc">Meilleure gestion et suivi automatise.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon teal">&#128269;</div><div class="mega-item-text"><div class="mega-item-title">Besoin d'un audit Global</div><div class="mega-item-desc">Vision claire des actions a mener.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon orange">&#129302;</div><div class="mega-item-text"><div class="mega-item-title">Gagner du temps sur mes process</div><div class="mega-item-desc">Eliminez la double saisie et les taches redondantes.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon pink">&#127919;</div><div class="mega-item-text"><div class="mega-item-title">Pages de ventes</div><div class="mega-item-desc">Presence personnalisee pour convertir.</div></div></a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="#">Formations <svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu mega-menu--formations">
+          <div class="mega-grid mega-grid--1col">
+            <a href="formation-ga4.html" class="mega-item"><div class="mega-item-icon blue">&#128200;</div><div class="mega-item-text"><div class="mega-item-title">Google Analytics 4</div><div class="mega-item-desc">Maitrisez GA4 de A a Z.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon orange">&#128236;</div><div class="mega-item-text"><div class="mega-item-title">ActiveCampaign</div><div class="mega-item-desc">Automatisez votre marketing et CRM.</div></div></a>
+            <a href="#" class="mega-item"><div class="mega-item-icon green">&#128279;</div><div class="mega-item-text"><div class="mega-item-title">HubSpot CRM</div><div class="mega-item-desc">Pipeline commercial et automation.</div></div></a>
+          </div>
+          <div class="mega-divider"></div>
+          <div class="mega-footer"><span>&#127891;</span> Formations certifiees <strong style="color:#1a1a2e;margin-left:4px;">QUALIOPI</strong></div>
+        </div>
+      </li>
+      <li><a href="use-cases.html">Use Case</a></li>
+      <li><a href="#">Qui suis-je ?</a></li>
+    </ul>
+    <div><a href="#cta-banner" class="btn-nav">Prendre Rendez-vous</a></div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="container breadcrumb">
+  <a href="use-cases.html">Use Cases</a><span>/</span>KPMG &rarr; RYDGE
+</div>
+
+<!-- CONTEXT BANNER -->
+<div class="container">
+  <div class="context-banner">
+    <div class="context-banner-icon">&#128260;</div>
+    <div class="context-banner-text"><strong>Contexte :</strong> Accompagnement de KPMG lors de sa transformation en RYDGE, incluant la migration complete de Salesforce vers HubSpot et la restructuration de l'ensemble des processus metiers, commerciaux, support et marketing.</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tags">
+          <span class="hero-tag salesforce"><img src="https://cdn.simpleicons.org/salesforce/00A1E0" alt="Salesforce"> Salesforce</span>
+          <span class="hero-tag migration">&#128260; Migration</span>
+          <span class="hero-tag hubspot"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"> HubSpot</span>
+          <span class="hero-tag formation">&#127891; Formation</span>
+        </div>
+        <div class="client-name">&#127970; KPMG &rarr; RYDGE</div>
+        <h1 class="hero-title">Migration Salesforce vers HubSpot et restructuration complete des processus</h1>
+        <p class="hero-desc">Accompagnement de KPMG dans le cadre de sa transformation en RYDGE : cartographie des processus metiers, migration de Salesforce vers HubSpot, integration du support, du marketing et des processus commerciaux, puis formation des equipes.</p>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=380&fit=crop" alt="KPMG RYDGE transformation bureaux">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number">6</div>
+      <div class="stat-label">Missions realisees</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">Salesforce</div>
+      <div class="stat-label">CRM d'origine</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">HubSpot</div>
+      <div class="stat-label">CRM cible</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">KPMG &rarr; RYDGE</div>
+      <div class="stat-label">Rebranding en cours</div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSIONS -->
+<section id="missions">
+  <div class="container">
+    <h2 class="missions-title">Missions realisees</h2>
+    <p class="missions-desc">Un accompagnement de bout en bout pour assurer la migration de Salesforce vers HubSpot et la restructuration des processus metiers dans le cadre de la transformation de KPMG en RYDGE.</p>
+
+    <!-- Mission 1 -->
+    <div class="mission-card">
+      <div class="mission-num">1</div>
+      <div class="mission-body">
+        <h3>Cartographie des processus des metiers a integrer dans HubSpot</h3>
+        <p>Analyse et cartographie exhaustive de l'ensemble des processus metiers existants sur Salesforce pour preparer leur migration vers HubSpot. Identification des flux critiques, des dependances entre equipes et des points d'optimisation a saisir lors du passage au nouveau CRM.</p>
+        <div class="mission-tools">
+          <span class="tool-badge salesforce"><img src="https://cdn.simpleicons.org/salesforce/00A1E0" alt="Salesforce"> Salesforce</span>
+          <span class="tool-badge hubspot"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"> HubSpot</span>
+          <span class="tool-badge migration">&#128260; Migration</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission 2 -->
+    <div class="mission-card">
+      <div class="mission-num">2</div>
+      <div class="mission-body">
+        <h3>Accompagnement d'une agence dans la structuration et la mise en place de ses processus</h3>
+        <p>Accompagnement dans la definition, la structuration et l'implementation des processus operationnels au sein de HubSpot. Travail collaboratif avec les equipes pour modeliser les workflows, definir les etapes cles et garantir une adoption fluide du nouveau systeme.</p>
+        <div class="mission-tools">
+          <span class="tool-badge hubspot"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"> HubSpot</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission 3 -->
+    <div class="mission-card">
+      <div class="mission-num">3</div>
+      <div class="mission-body">
+        <h3>Integration du pole support dans HubSpot</h3>
+        <p>Deploiement du module Service Hub pour centraliser la gestion du support client. Configuration des pipelines de tickets, mise en place des regles de routage automatique, des SLA et des rapports de suivi pour assurer un traitement efficace des demandes.</p>
+        <div class="mission-tools">
+          <span class="tool-badge hubspot"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"> HubSpot Service Hub</span>
+          <span class="tool-badge support">&#127915; Support</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission 4 -->
+    <div class="mission-card">
+      <div class="mission-num">4</div>
+      <div class="mission-body">
+        <h3>Facilitation marketing dans HubSpot</h3>
+        <p>Mise en place des outils de marketing automation dans HubSpot : creation de workflows de nurturing, segmentation des bases de contacts, configuration des campagnes email et mise en place du reporting marketing pour piloter les performances.</p>
+        <div class="mission-tools">
+          <span class="tool-badge hubspot"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"> HubSpot Marketing</span>
+          <span class="tool-badge marketing">&#128232; Marketing Automation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission 5 -->
+    <div class="mission-card">
+      <div class="mission-num">5</div>
+      <div class="mission-body">
+        <h3>Integration et harmonisation des processus commerciaux</h3>
+        <p>Restructuration complete des pipelines commerciaux dans HubSpot. Migration des deals et contacts depuis Salesforce, harmonisation des proprietes, creation des workflows de suivi automatise et alignement des processus de vente avec la nouvelle identite RYDGE.</p>
+        <div class="mission-tools">
+          <span class="tool-badge hubspot"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"> HubSpot Sales</span>
+          <span class="tool-badge commercial">&#128188; Commercial</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission 6 -->
+    <div class="mission-card">
+      <div class="mission-num">6</div>
+      <div class="mission-body">
+        <h3>Formation et accompagnement des equipes a la prise en main des outils</h3>
+        <p>Sessions de formation personnalisees pour chaque pole (commercial, support, marketing) afin de garantir une prise en main optimale de HubSpot. Accompagnement post-formation avec un suivi pour consolider les acquis et repondre aux questions terrain.</p>
+        <div class="mission-tools">
+          <span class="tool-badge hubspot"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"> HubSpot</span>
+          <span class="tool-badge formation">&#127891; Formation</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="container">
+    <div class="results-header">
+      <h2>Resultats obtenus</h2>
+      <p>Une migration reussie de Salesforce vers HubSpot avec une adoption rapide par l'ensemble des equipes dans le contexte de la transformation KPMG vers RYDGE.</p>
+    </div>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-card-icon">&#128260;</div>
+        <p>Migration complete de Salesforce vers HubSpot sans perte de donnees</p>
+      </div>
+      <div class="result-card">
+        <div class="result-card-icon">&#128736;</div>
+        <p>Processus metiers cartographies, restructures et optimises dans HubSpot</p>
+      </div>
+      <div class="result-card">
+        <div class="result-card-icon">&#127915;</div>
+        <p>Pole support pleinement operationnel dans HubSpot Service Hub</p>
+      </div>
+    </div>
+    <div class="results-grid" style="margin-top:20px;">
+      <div class="result-card">
+        <div class="result-card-icon">&#128232;</div>
+        <p>Marketing automation deploye et campagnes operationnelles</p>
+      </div>
+      <div class="result-card">
+        <div class="result-card-icon">&#128200;</div>
+        <p>Pipelines commerciaux harmonises et alignes avec la nouvelle identite RYDGE</p>
+      </div>
+      <div class="result-card">
+        <div class="result-card-icon">&#127891;</div>
+        <p>Equipes formees et autonomes sur HubSpot</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="container">
+    <div class="tools-title">Outils utilises sur ce projet</div>
+    <div class="tools-row">
+      <div class="tool-item">
+        <div class="tool-icon blue"><img src="https://cdn.simpleicons.org/salesforce/00A1E0" alt="Salesforce"></div>
+        <div class="tool-label">Salesforce</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon rose"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"></div>
+        <div class="tool-label">HubSpot</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Un projet similaire ? Discutons-en.</h2>
+      <p>Chaque entreprise a ses propres defis. Prenez rendez-vous pour un diagnostic gratuit de 30 minutes.</p>
+      <div class="cta-btns">
+        <a href="#" class="btn-primary">Prendre Rendez-vous &rarr;</a>
+        <a href="use-cases.html" class="btn-outline-light">Voir tous les use cases</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg width="42" height="32" viewBox="0 0 42 32" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="7" height="28" rx="2" fill="#fff"/>
+          <rect x="13" y="8" width="7" height="22" rx="2" fill="#fff"/>
+          <rect x="24" y="2" width="7" height="28" rx="2" fill="#fff"/>
+          <rect x="35" y="10" width="5" height="12" rx="2" fill="#2b5540"/>
+        </svg>
+        <p>Une methodologie eprouvee et professionnalisee dans la croissance, marketing et data B2B.</p>
+      </div>
+      <div class="footer-col"><h4>Solutions</h4><ul><li><a href="recherche-leads.html">Recherche de leads</a></li><li><a href="#">Traitement des leads</a></li><li><a href="#">Donnees de conversion</a></li><li><a href="#">Besoin d'un Audit</a></li></ul></div>
+      <div class="footer-col"><h4>Apporteur d'Affaires</h4><ul><li><a href="#">Je suis une Agence</a></li><li><a href="#">Je suis Freelance</a></li></ul></div>
+      <div class="footer-col"><h4>Formations</h4><ul><li><a href="formation-ga4.html">Formation Google Analytics 4</a></li><li><a href="#">Formation ActiveCampaign</a></li><li><a href="#">Formation HubSpot</a></li></ul></div>
+      <div class="footer-col"><h4>Espace Clients</h4><ul><li><a href="#">Espace de Tickets</a></li><li><a href="#">Chat Messenger</a></li><li><a href="#">Suivi mes Factures</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 - Devinblack Stephane Aminaux</p>
+      <div class="footer-legal"><a href="#">Politique de confidentialite</a><a href="#">Conditions de services</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
