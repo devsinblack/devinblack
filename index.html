@@ -72,8 +72,8 @@ section{padding:100px 0;}
 
 /* LOGOS */
 #logos{padding:40px 0;border-top:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;}
-.logos-row{display:flex;align-items:center;justify-content:center;gap:48px;opacity:.4;}
-.logo-placeholder{width:100px;height:32px;background:#d0d0d0;border-radius:6px;}
+.logos-row{display:flex;align-items:center;justify-content:center;gap:48px;opacity:.4;flex-wrap:wrap;}
+.logos-row svg{flex-shrink:0;max-width:120px;height:auto;}
 
 /* SERVICES */
 #services{background:#fff;}
@@ -105,7 +105,7 @@ section{padding:100px 0;}
 
 /* TESTIMONIALS */
 #testimonials{background:#f8f9fa;padding:100px 0;}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
 .testi-card{background:#fff;border:1px solid #eee;border-radius:16px;padding:28px;transition:all .3s;}
 .testi-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08);}
 .stars{color:#f0b429;font-size:.9rem;margin-bottom:14px;letter-spacing:2px;}
@@ -147,6 +147,8 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
   .hero-grid,.services-top,.services-grid,.offre-row,.offre-row.reverse,.testi-grid,.footer-grid{grid-template-columns:1fr;}
   .offre-row.reverse{direction:ltr;}
   nav .nav-links{display:none;}
+  .logos-row{gap:32px;justify-content:center;}
+  .logos-row svg{max-width:100px;}
 }
 </style>
 </head>
@@ -226,11 +228,11 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
 <section id="logos">
   <div class="container">
     <div class="logos-row">
-      <div class="logo-placeholder"></div>
-      <div class="logo-placeholder"></div>
-      <div class="logo-placeholder"></div>
-      <div class="logo-placeholder"></div>
-      <div class="logo-placeholder"></div>
+      <svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg"><g fill="#1a1a2e"><path d="M4 28h4V16h-4zm6 0h3V20h-3zm5 0h4V12h-4zm6 0h3V18h-3zm5 0h4V14h-4zm6 0h3V22h-3z"/><text x="0" y="38" font-family="Inter,sans-serif" font-size="8" font-weight="800" letter-spacing=".5">SAINT-GOBAIN</text></g></svg>
+      <svg width="150" height="40" viewBox="0 0 150 40" xmlns="http://www.w3.org/2000/svg"><g fill="#1a1a2e"><text x="0" y="22" font-family="Inter,sans-serif" font-size="16" font-weight="800" letter-spacing=".5">dgac</text><text x="50" y="14" font-family="Inter,sans-serif" font-size="5.5" font-weight="600">DIRECTION</text><text x="50" y="21" font-family="Inter,sans-serif" font-size="5.5" font-weight="600">GÉNÉRALE</text><text x="50" y="28" font-family="Inter,sans-serif" font-size="5.5" font-weight="600">DE L'AVIATION CIVILE</text></g></svg>
+      <svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><g fill="#1a1a2e"><path d="M0 10h6v20H0z"/><path d="M3 10c0-2 2-4 4-4v24c-2 0-4-2-4-4z"/><text x="14" y="27" font-family="Inter,sans-serif" font-size="16" font-weight="700">Sup<tspan font-weight="400">de</tspan>Pub</text></g></svg>
+      <svg width="110" height="40" viewBox="0 0 110 40" xmlns="http://www.w3.org/2000/svg"><text x="0" y="28" font-family="Inter,sans-serif" font-size="22" font-weight="300" fill="#1a1a2e" letter-spacing="-0.5">Geolid</text></svg>
+      <svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg"><g fill="#1a1a2e"><circle cx="127" cy="14" r="8" fill="none" stroke="#1a1a2e" stroke-width="1.5"/><path d="M127 8v12M123 14c0-2.2 1.8-4 4-4s4 1.8 4 4" fill="none" stroke="#1a1a2e" stroke-width="1.5"/><text x="0" y="16" font-family="Inter,sans-serif" font-size="10" font-weight="400">Institut</text><text x="0" y="28" font-family="Inter,sans-serif" font-size="10" font-weight="700">Pasteur</text></g></svg>
     </div>
   </div>
 </section>
@@ -288,6 +290,9 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
 <!-- OFFRES PERSONNALISEES -->
 <div class="container">
   <div class="offre-row">
+    <div class="offre-img">
+      <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=450&fit=crop" alt="Réunion stratégie personnalisée">
+    </div>
     <div class="offre-content">
       <h2>Des offres personnalisées !</h2>
       <p>Si votre besoin n'est pas typique ou ne rentre pas dans mes packages, je cherche avec vous la stratégie à adopter.</p>
@@ -297,9 +302,6 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
         <li>Envoi d'un devis/CPP</li>
         <li>Mise en place calendrier prévisionnel</li>
       </ul>
-    </div>
-    <div class="offre-img">
-      <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=450&fit=crop" alt="Réunion stratégie personnalisée">
     </div>
   </div>
 </div>
@@ -346,6 +348,14 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
         <div class="testi-author">
           <div class="author-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=88&h=88&fit=crop&crop=face" alt="Sonia"></div>
           <div><div class="author-name">Sonia</div><div class="author-role">Créatrice d'entreprise</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="testi-text">"Sophiane s'est montré extrêmement réactif, professionnel et rigoureux. Il a très vite compris nos enjeux et livré des analyses claires, pertinentes et exploitables sur Hubspot, avec une rapidité d'exécution remarquable. Une collaboration fluide et efficace, je n'hésiterai pas à refaire appel à ses services !"</div>
+        <div class="testi-author">
+          <div class="author-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=88&h=88&fit=crop&crop=face" alt="Margot"></div>
+          <div><div class="author-name">Margot</div><div class="author-role">Responsable Marketing</div></div>
         </div>
       </div>
     </div>
@@ -414,7 +424,7 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2024 - Devinblack Stéphane Aminaux</p>
+      <p>&copy; 2024 - Devinblack Sophiane Ammour</p>
       <div class="footer-legal">
         <a href="#">Politique de confidentialité</a>
         <a href="#">Conditions de services</a>

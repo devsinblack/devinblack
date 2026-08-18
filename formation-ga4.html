@@ -75,20 +75,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0
 .sujet-card-body p{font-size:.88rem;color:#6b7280;line-height:1.6;}
 
 /* COMMENT CA MARCHE */
-#process{padding:100px 0;background:#fff;}
-.process-header{text-align:center;margin-bottom:60px;}
-.process-header h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:8px;}
+#process{padding:72px 32px 96px;background:#f8f9fa;}
 
-/* ACCORDION */
-.accordion{max-width:800px;margin:0 auto;}
-.accordion-section{margin-bottom:32px;}
-.accordion-title{font-size:1.3rem;font-weight:700;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
-.accordion-title::before{content:'';width:40px;height:2px;background:#1a1a2e;}
-.step-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.step-card{background:#f8f9fa;border:1px solid #eee;border-radius:14px;padding:24px;text-align:center;}
-.step-card-icon{width:52px;height:52px;background:#eaf5ef;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 14px;}
-.step-card h4{font-size:.92rem;font-weight:700;margin-bottom:8px;color:#1a1a2e;}
-.step-card p{font-size:.82rem;color:#6b7280;line-height:1.6;}
+/* PROCESS HEADER */
+.proc-header{width:100%;max-width:980px;margin:0 auto 64px;display:flex;flex-direction:column;gap:20px;}
+.proc-header-tag{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#2b5540;font-weight:500;}
+.proc-header-tag::before{content:'';width:28px;height:1px;background:#2b5540;}
+.proc-header h2{margin:0;font-size:clamp(2rem,4vw,2.8rem);line-height:1.1;font-weight:300;letter-spacing:-.015em;color:#1a1a2e;max-width:720px;}
+.proc-header h2 strong{font-weight:800;}
+.proc-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.proc-pill{border:1px solid #d1e7dd;border-radius:999px;padding:7px 14px;font-size:13px;color:#4a5568;background:#fff;}
+
+/* PROCESS PHASES */
+.proc-phases{width:100%;max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:56px;}
+.proc-phase{display:grid;grid-template-columns:240px 1fr;gap:40px;align-items:start;}
+.proc-phase-sidebar{display:flex;flex-direction:column;gap:10px;position:sticky;top:32px;}
+.proc-phase-label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#6b7280;font-weight:500;}
+.proc-phase-title{margin:0;font-size:clamp(1.4rem,2.5vw,1.8rem);line-height:1.12;font-weight:800;letter-spacing:-.01em;color:#1a1a2e;}
+.proc-phase-title::after{content:'';display:block;width:40px;height:2px;background:#1a1a2e;margin-top:14px;}
+.proc-cards{display:flex;flex-direction:column;gap:14px;}
+.proc-divider{width:100%;height:1px;background:#e2e8f0;}
+
+/* PROCESS CARDS */
+.proc-card{display:grid;grid-template-columns:64px 1fr;gap:22px;align-items:start;background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:26px 28px;box-shadow:0 1px 2px rgba(0,0,0,.03);transition:all .3s;}
+.proc-card:hover{border-color:#c8ddd0;box-shadow:0 6px 22px rgba(0,0,0,.06);}
+.proc-card.dark{background:#1a1a2e;border-color:#1a1a2e;}
+.proc-card.dark:hover{box-shadow:0 6px 22px rgba(0,0,0,.14);}
+.proc-card-left{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.proc-card-icon{width:52px;height:52px;border-radius:14px;background:#eaf5ef;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.proc-card.dark .proc-card-icon{background:rgba(255,255,255,.09);}
+.proc-card-num{font-size:12px;font-weight:700;color:#2b5540;letter-spacing:.06em;}
+.proc-card.dark .proc-card-num{color:#7bc9a0;}
+.proc-card-body{display:flex;flex-direction:column;gap:8px;}
+.proc-card-body h3{margin:0;font-size:1.15rem;font-weight:600;letter-spacing:-.01em;line-height:1.25;color:#1a1a2e;}
+.proc-card.dark .proc-card-body h3{color:#f0f4f8;}
+.proc-card-body p{margin:0;font-size:.95rem;line-height:1.6;color:#6b7280;}
+.proc-card.dark .proc-card-body p{color:#9ca3af;}
+.steps-connector svg{display:block;}
 
 /* AIDE SUPP */
 #aide{padding:100px 0;background:#f8f9fa;}
@@ -141,8 +164,13 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
 .deco-green{width:100px;height:100px;background:rgba(43,85,64,.2);filter:blur(40px);}
 
 @media(max-width:900px){
-  .hero-grid,.sujets-grid,.step-cards,.aide-grid,.footer-grid{grid-template-columns:1fr;}
+  .hero-grid,.sujets-grid,.aide-grid,.footer-grid{grid-template-columns:1fr;}
   nav .nav-links{display:none;}
+  .proc-phase{grid-template-columns:1fr;}
+  .proc-phase-sidebar{position:static;}
+  .proc-card{grid-template-columns:1fr;}
+  .proc-card-left{flex-direction:row;}
+  #process{padding:48px 20px 64px;}
 }
 </style>
 </head>
@@ -259,55 +287,96 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
 </section>
 
 <!-- COMMENT UNE FORMATION EST MISE EN PLACE -->
-<section id="process" style="position:relative;">
-  <div class="deco-circle deco-gold" style="top:60px;left:-40px;"></div>
-  <div class="deco-circle deco-pink" style="bottom:80px;right:-50px;"></div>
-  <div class="container">
-    <div class="process-header">
-      <h2>Comment une formation est mise en place</h2>
+<section id="process">
+  <div class="proc-header">
+    <div class="proc-header-tag">Parcours en 6 étapes</div>
+    <h2>Le déroulé de votre <strong>formation</strong></h2>
+    <div class="proc-pills">
+      <span class="proc-pill">Étude besoin et démarches</span>
+      <span class="proc-pill">La formation et son suivi</span>
     </div>
+  </div>
 
-    <div class="accordion">
-      <div class="accordion-section">
-        <div class="accordion-title">Étude besoin et démarches</div>
-        <div class="step-cards">
-          <div class="step-card">
-            <div class="step-card-icon">&#128172;</div>
-            <h4>Appel de découverte des besoins</h4>
+  <div class="proc-phases">
+    <!-- Phase 1 -->
+    <div class="proc-phase">
+      <div class="proc-phase-sidebar">
+        <div class="proc-phase-label">Phase 01</div>
+        <h2 class="proc-phase-title">Étude besoin et démarches</h2>
+      </div>
+      <div class="proc-cards">
+        <article class="proc-card">
+          <div class="proc-card-left">
+            <div class="proc-card-icon">&#128172;</div>
+            <div class="proc-card-num">01</div>
+          </div>
+          <div class="proc-card-body">
+            <h3>Appel de découverte des besoins</h3>
             <p>On s'appelle ensemble, vous m'expliquez vos problématiques actuelles sur votre compte ou site internet. On fait un premier jet de vos attentes.</p>
           </div>
-          <div class="step-card">
-            <div class="step-card-icon">&#128203;</div>
-            <h4>Définition des objectifs de la formation</h4>
+        </article>
+        <article class="proc-card">
+          <div class="proc-card-left">
+            <div class="proc-card-icon">&#128203;</div>
+            <div class="proc-card-num">02</div>
+          </div>
+          <div class="proc-card-body">
+            <h3>Définition des objectifs de la formation</h3>
             <p>Suite à mon échange avec vous, vous me partagez vos accès à la formation, à la suite je vous programme et vous propose le programme de formation.</p>
           </div>
-          <div class="step-card">
-            <div class="step-card-icon">&#128188;</div>
-            <h4>Mise en place administrative</h4>
+        </article>
+        <article class="proc-card">
+          <div class="proc-card-left">
+            <div class="proc-card-icon">&#128188;</div>
+            <div class="proc-card-num">03</div>
+          </div>
+          <div class="proc-card-body">
+            <h3>Mise en place administrative</h3>
             <p>Suite à la prise de décision finale, je mets en place avec vous le programme des journées. Formation(s), compétences, date(s) et durée(s) de la dernière séance publier.</p>
           </div>
-        </div>
+        </article>
       </div>
+    </div>
 
-      <div class="accordion-section" style="margin-top:48px;">
-        <div class="accordion-title">La formation et son suivi</div>
-        <div class="step-cards">
-          <div class="step-card">
-            <div class="step-card-icon">&#127891;</div>
-            <h4>Mise en place formation présentiel/distanciel</h4>
+    <div class="proc-divider"></div>
+
+    <!-- Phase 2 -->
+    <div class="proc-phase">
+      <div class="proc-phase-sidebar">
+        <div class="proc-phase-label">Phase 02</div>
+        <h2 class="proc-phase-title">La formation et son suivi</h2>
+      </div>
+      <div class="proc-cards">
+        <article class="proc-card dark">
+          <div class="proc-card-left">
+            <div class="proc-card-icon">&#127891;</div>
+            <div class="proc-card-num">04</div>
+          </div>
+          <div class="proc-card-body">
+            <h3>Mise en place formation présentiel/distanciel</h3>
             <p>Votre place est réservée soit en distanciel chez vous soit en formation présentiel sur un espace de co-working prévu à cet effet.</p>
           </div>
-          <div class="step-card">
-            <div class="step-card-icon">&#128203;</div>
-            <h4>Suivi administratif</h4>
+        </article>
+        <article class="proc-card">
+          <div class="proc-card-left">
+            <div class="proc-card-icon">&#128203;</div>
+            <div class="proc-card-num">05</div>
+          </div>
+          <div class="proc-card-body">
+            <h3>Suivi administratif</h3>
             <p>Après la session je vais vous de la remise de la formation, de la convention et ensuite je vous envoie l'attest et un export présentiel de la formation.</p>
           </div>
-          <div class="step-card">
-            <div class="step-card-icon">&#128222;</div>
-            <h4>Support pendant 3 mois</h4>
+        </article>
+        <article class="proc-card">
+          <div class="proc-card-left">
+            <div class="proc-card-icon">&#128222;</div>
+            <div class="proc-card-num">06</div>
+          </div>
+          <div class="proc-card-body">
+            <h3>Support pendant 3 mois</h3>
             <p>Une fois la formation terminée, vous avez possibilité de revenir vers moi avec un suivi support pour toute compléter l'ensemble sur la formation.</p>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -384,7 +453,7 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
       <div class="footer-col"><h4>Espace Clients</h4><ul><li><a href="#">Espace de Tickets</a></li><li><a href="#">Chat Messenger</a></li><li><a href="#">Suivi mes Factures</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2024 - Devinblack Stéphane Aminaux</p>
+      <p>&copy; 2024 - Devinblack Sophiane Ammour</p>
       <div class="footer-legal"><a href="#">Politique de confidentialité</a><a href="#">Conditions de services</a></div>
     </div>
   </div>
