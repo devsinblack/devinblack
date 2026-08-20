@@ -469,8 +469,8 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
 </footer>
 
 <script>
-document.querySelector('.nav-burger').addEventListener('click',function(){var c=document.getElementById('nav-toggle');c.checked=!c.checked;});
-document.querySelector('.nav-overlay').addEventListener('click',function(){document.getElementById('nav-toggle').checked=false;});
+document.querySelector('.nav-burger').addEventListener('click',function(e){e.preventDefault();var c=document.getElementById('nav-toggle');c.checked=!c.checked;});
+document.querySelector('.nav-overlay').addEventListener('click',function(e){e.preventDefault();document.getElementById('nav-toggle').checked=false;});
 </script>
 </body>
 </html>

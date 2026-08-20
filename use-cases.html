@@ -328,5 +328,10 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 </script>
 
+<script>
+document.querySelector('.nav-burger').addEventListener('click',function(e){e.preventDefault();var c=document.getElementById('nav-toggle');c.checked=!c.checked;});
+document.querySelector('.nav-overlay').addEventListener('click',function(e){e.preventDefault();document.getElementById('nav-toggle').checked=false;});
+</script>
+
 </body>
 </html>
