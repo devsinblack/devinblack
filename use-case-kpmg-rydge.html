@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -26,6 +26,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0
 .nav-links>li:hover .chevron{transform:rotate(180deg);}
 .btn-nav{display:inline-flex;align-items:center;background:#2b5540;color:#fff;padding:12px 26px;border-radius:50px;font-weight:600;font-size:14px;border:none;cursor:pointer;transition:all .25s;white-space:nowrap;}
 .btn-nav:hover{background:#1e3d2e;transform:translateY(-1px);box-shadow:0 4px 16px rgba(43,85,64,.3);}
+.nav-toggle{display:none;}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;z-index:101;}
+.nav-burger span{display:block;width:24px;height:2px;background:#1a1a2e;border-radius:2px;transition:all .3s;}
+.nav-toggle:checked~.nav-inner .nav-burger span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-toggle:checked~.nav-inner .nav-burger span:nth-child(2){opacity:0;}
+.nav-toggle:checked~.nav-inner .nav-burger span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:98;}
 .mega-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px);background:#fff;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.04);padding:28px 32px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;z-index:200;}
 .mega-menu::before{content:'';position:absolute;top:-12px;left:0;right:0;height:12px;}
 .nav-links>li:hover>.mega-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
@@ -151,7 +158,18 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
   .hero-grid,.stats-bar,.results-grid,.footer-grid{grid-template-columns:1fr;}
   .mission-card{grid-template-columns:1fr;}
   .context-banner{flex-direction:column;text-align:center;}
-  nav .nav-links{display:none;}
+  .nav-burger{display:flex;}
+  nav .nav-links{display:flex;flex-direction:column;position:fixed;top:0;right:-300px;width:280px;height:100vh;background:#fff;padding:80px 24px 32px;gap:0;box-shadow:-4px 0 24px rgba(0,0,0,.1);z-index:99;transition:right .3s ease;overflow-y:auto;}
+  nav .nav-links>li>a{padding:14px 16px;font-size:16px;width:100%;border-radius:8px;}
+  nav .nav-links>li>a.bordered{border:none;}
+  .nav-toggle:checked~.nav-inner .nav-links{right:0;}
+  .nav-toggle:checked~.nav-overlay{display:block;}
+  .mega-menu{position:static!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;box-shadow:none!important;padding:8px 0 8px 12px!important;width:100%!important;display:none;}
+  .nav-links>li:hover>.mega-menu{display:block;}
+  .mega-grid--2col{grid-template-columns:1fr;}
+  .mega-item{padding:10px 12px;}
+  .mega-item-icon{width:36px;height:36px;font-size:1rem;}
+  .nav-inner .btn-nav{display:none;}
   .stats-bar{grid-template-columns:1fr 1fr;}
 }
 </style>
@@ -160,6 +178,8 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
 
 <!-- NAV -->
 <nav>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label class="nav-overlay" for="nav-toggle"></label>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <svg width="42" height="32" viewBox="0 0 42 32" xmlns="http://www.w3.org/2000/svg">
@@ -188,7 +208,7 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
         <div class="mega-menu mega-menu--formations">
           <div class="mega-grid mega-grid--1col">
             <a href="formation-ga4.html" class="mega-item"><div class="mega-item-icon blue">&#128200;</div><div class="mega-item-text"><div class="mega-item-title">Google Analytics 4</div><div class="mega-item-desc">Maîtrisez GA4 de A à Z.</div></div></a>
-            <a href="#" class="mega-item"><div class="mega-item-icon orange">&#128236;</div><div class="mega-item-text"><div class="mega-item-title">ActiveCampaign</div><div class="mega-item-desc">Automatisez votre marketing et CRM.</div></div></a>
+            <a href="formation-activecampaign.html" class="mega-item"><div class="mega-item-icon orange">&#128236;</div><div class="mega-item-text"><div class="mega-item-title">ActiveCampaign</div><div class="mega-item-desc">Automatisez votre marketing et CRM.</div></div></a>
             <a href="#" class="mega-item"><div class="mega-item-icon green">&#128279;</div><div class="mega-item-text"><div class="mega-item-title">HubSpot CRM</div><div class="mega-item-desc">Pipeline commercial et automation.</div></div></a>
           </div>
           <div class="mega-divider"></div>
@@ -199,6 +219,7 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
       <li><a href="#">Qui suis-je ?</a></li>
     </ul>
     <div><a href="#cta-banner" class="btn-nav">Prendre Rendez-vous</a></div>
+    <label class="nav-burger" for="nav-toggle"><span></span><span></span><span></span></label>
   </div>
 </nav>
 
@@ -430,7 +451,7 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
       </div>
       <div class="footer-col"><h4>Solutions</h4><ul><li><a href="recherche-leads.html">Recherche de leads</a></li><li><a href="#">Traitement des leads</a></li><li><a href="#">Données de conversion</a></li><li><a href="#">Besoin d'un Audit</a></li></ul></div>
       <div class="footer-col"><h4>Apporteur d'Affaires</h4><ul><li><a href="#">Je suis une Agence</a></li><li><a href="#">Je suis Freelance</a></li></ul></div>
-      <div class="footer-col"><h4>Formations</h4><ul><li><a href="formation-ga4.html">Formation Google Analytics 4</a></li><li><a href="#">Formation ActiveCampaign</a></li><li><a href="#">Formation HubSpot</a></li></ul></div>
+      <div class="footer-col"><h4>Formations</h4><ul><li><a href="formation-ga4.html">Formation Google Analytics 4</a></li><li><a href="formation-activecampaign.html">Formation ActiveCampaign</a></li><li><a href="#">Formation HubSpot</a></li></ul></div>
       <div class="footer-col"><h4>Espace Clients</h4><ul><li><a href="#">Espace de Tickets</a></li><li><a href="#">Chat Messenger</a></li><li><a href="#">Suivi mes Factures</a></li></ul></div>
     </div>
     <div class="footer-bottom">
@@ -440,5 +461,9 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
   </div>
 </footer>
 
+<script>
+document.querySelector('.nav-burger').addEventListener('click',function(){var c=document.getElementById('nav-toggle');c.checked=!c.checked;});
+document.querySelector('.nav-overlay').addEventListener('click',function(){document.getElementById('nav-toggle').checked=false;});
+</script>
 </body>
 </html>
