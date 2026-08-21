@@ -96,20 +96,60 @@ section{padding:100px 0;}
 .service-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;color:#1a1a2e;}
 .service-card p{font-size:.88rem;color:#6b7280;line-height:1.6;}
 
-/* OFFRES */
-.offre-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 0;}
-.offre-row.reverse{direction:rtl;}
-.offre-row.reverse>*{direction:ltr;}
-.offre-img{border-radius:20px;overflow:hidden;aspect-ratio:4/3;}
-.offre-img img{width:100%;height:100%;object-fit:cover;}
-.offre-content h2{font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:16px;}
-.offre-content p{font-size:.95rem;color:#6b7280;line-height:1.7;margin-bottom:20px;}
-.offre-link{color:#2b5540;font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;transition:gap .2s;}
-.offre-link:hover{gap:10px;}
-.check-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-.check-list li{display:flex;align-items:center;gap:10px;font-size:.9rem;color:#1a1a2e;}
-.check-list li::before{content:'';width:20px;height:20px;background:#2b5540;border-radius:50%;flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center;}
-.process-label{font-size:.82rem;font-weight:600;color:#2b5540;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
+/* OFFRES SELECTOR */
+#offres-selector{padding:20px 0 40px;}
+.offsel-card{background:#12211b;border-radius:20px;overflow:hidden;}
+.offsel-head{padding:clamp(36px,6vw,64px) clamp(24px,5vw,56px) clamp(24px,4vw,32px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;}
+.offsel-eyebrow{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8fd0b0;}
+.offsel-head h2{margin:12px 0 12px;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;color:#f7faf8;max-width:600px;}
+.offsel-head p{font-size:.98rem;line-height:1.6;color:#adbcb5;max-width:520px;margin:0;}
+.offsel-badge{display:flex;flex-direction:column;gap:8px;padding:20px 24px;background:#1b332b;border:1px solid #27453a;border-radius:12px;min-width:230px;}
+.offsel-badge span:first-child{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8fa39a;}
+.offsel-badge span:nth-child(2){font-weight:700;font-size:18px;color:#f7faf8;}
+.offsel-badge span:nth-child(3){font-size:13px;color:#adbcb5;}
+.offsel-body{padding:0 clamp(16px,4vw,56px) clamp(36px,6vw,60px);}
+.offsel-tabs-label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8fa39a;margin-bottom:14px;}
+.offsel-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+@media(max-width:1000px){.offsel-tabs{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.offsel-tabs{grid-template-columns:1fr;}}
+.offsel-tab{position:relative;display:flex;flex-direction:column;gap:8px;padding:18px 20px;border-radius:10px;cursor:pointer;text-align:left;border:1px solid #27453a;background:#1b332b;color:#dde5e1;font-family:inherit;transition:background .18s,color .18s,border-color .18s;}
+.offsel-tab:hover{border-color:#3a5c4d;}
+.offsel-tab.active{background:#f7faf8;color:#12241e;border-color:#f7faf8;border-left:4px solid #2b5540;box-shadow:0 0 0 3px rgba(247,250,248,.22);}
+.offsel-tab-top{display:flex;align-items:center;gap:10px;}
+.offsel-tab-icon{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;flex-shrink:0;background:#12241e;border:1px solid #27453a;color:#8fd0b0;}
+.offsel-tab.active .offsel-tab-icon{background:#eaf5ef;border-color:#cfded6;color:#2b5540;}
+.offsel-tab-num{font-size:11px;opacity:.7;margin-left:auto;}
+.offsel-tab-label{font-weight:600;font-size:15px;line-height:1.35;}
+.offsel-tab-tag{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2b5540;}
+
+.offsel-panel{background:#f7faf8;border-radius:12px;border-top:4px solid #2b5540;padding:clamp(24px,4vw,40px) clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:24px;}
+.offsel-panel-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-bottom:20px;border-bottom:1px solid #e2e7e3;}
+.offsel-panel-head-left{display:flex;align-items:center;gap:14px;}
+.offsel-panel-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex:none;border-radius:8px;background:#eaf5ef;border:1px solid #cfded6;color:#2b5540;}
+.offsel-panel-eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2b5540;}
+.offsel-panel-label{font-weight:700;font-size:16px;color:#1a1a2e;}
+.offsel-panel-badge{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:#eaf5ef;color:#12241e;padding:5px 10px;border-radius:4px;}
+.offsel-panel h3{margin:0;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.01em;line-height:1.2;color:#1a1a2e;}
+.offsel-panel-desc{margin:0;font-size:.95rem;line-height:1.65;color:#5a6461;}
+.offsel-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;}
+.offsel-stat{padding:14px 16px;background:#fff;border:1px solid #e2e7e3;border-radius:8px;display:flex;flex-direction:column;gap:4px;}
+.offsel-stat span:first-child{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a938f;}
+.offsel-stat span:nth-child(2){font-weight:700;font-size:16px;color:#1a1a2e;}
+.offsel-divider{height:1px;background:#e2e7e3;}
+.offsel-bottom{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(20px,3vw,32px);align-items:stretch;}
+.offsel-bullets-label{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a938f;margin-bottom:12px;}
+.offsel-bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.offsel-bullets li{display:flex;gap:10px;font-size:.9rem;color:#3a4643;line-height:1.5;}
+.offsel-bullets li::before{content:'✓';color:#2b5540;font-weight:700;flex-shrink:0;}
+.offsel-next{display:flex;flex-direction:column;gap:8px;padding:18px 20px;background:#1a1a2e;border-radius:8px;}
+.offsel-next span:first-child{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8fa39a;}
+.offsel-next span:nth-child(2){font-size:.85rem;line-height:1.5;color:#dde5e1;}
+.offsel-cta-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:center;gap:clamp(16px,3vw,32px);}
+.offsel-cta{display:block;text-align:center;padding:16px 28px;background:#2b5540;color:#fff;border-radius:8px;font-weight:700;font-size:.95rem;transition:background .2s;}
+.offsel-cta:hover{background:#1e3d2e;color:#fff;}
+.offsel-guarantee{display:flex;flex-direction:column;gap:2px;}
+.offsel-guarantee span:first-child{font-size:.85rem;font-weight:700;color:#1a1a2e;}
+.offsel-guarantee span:nth-child(2){font-size:.78rem;color:#8a938f;}
 
 /* TESTIMONIALS */
 #testimonials{background:#f8f9fa;padding:100px 0;}
@@ -152,8 +192,9 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
 .section-title{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;text-align:center;margin-bottom:16px;}
 
 @media(max-width:900px){
-  .hero-grid,.services-top,.services-grid,.offre-row,.offre-row.reverse,.testi-grid,.footer-grid{grid-template-columns:1fr;}
-  .offre-row.reverse{direction:ltr;}
+  .hero-grid,.services-top,.services-grid,.testi-grid,.footer-grid{grid-template-columns:1fr;}
+  .offsel-head{align-items:flex-start;}
+  .offsel-badge{width:100%;}
   .nav-burger{display:flex;}
   nav .nav-links{display:flex;flex-direction:column;position:fixed;top:0;right:-300px;width:280px;height:100vh;background:#fff;padding:80px 24px 32px;gap:0;box-shadow:-4px 0 24px rgba(0,0,0,.1);z-index:99;transition:right .3s ease;overflow-y:auto;}
   nav .nav-links>li>a{padding:14px 16px;font-size:16px;width:100%;border-radius:8px;}
@@ -295,52 +336,143 @@ footer{background:#0f1117;color:#8888a0;padding:60px 0 30px;}
   </div>
 </section>
 
-<!-- OFFRES PRE-FAITES -->
-<div class="container">
-  <div class="offre-row reverse">
-    <div class="offre-img">
-      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop" alt="Dashboard marketing analytics">
-    </div>
-    <div class="offre-content">
-      <h2>Des offres pré-faites, simples à comprendre et efficaces</h2>
-      <p>Les packages sont le fruit de mes 10 années d'expérience dans le B2B. Ils vous permettent simplement de lancer une action marketing efficace rapidement et avec un budget contrôlé.</p>
-      <a href="#" class="offre-link">Retrouver mes Packages &rarr;</a>
-    </div>
-  </div>
-</div>
+<!-- OFFRES SELECTOR -->
+<section id="offres-selector">
+  <div class="container">
+    <div class="offsel-card">
+      <div class="offsel-head">
+        <div>
+          <span class="offsel-eyebrow">Trouver mon offre — 15 secondes</span>
+          <h2>Dites-moi où vous en êtes, je vous dis quoi faire.</h2>
+          <p>Package prêt à lancer, accompagnement sur mesure, formation certifiée ou formation + coréalisation : sélectionnez votre situation.</p>
+        </div>
+        <div class="offsel-badge">
+          <span>Depuis 10 ans</span>
+          <span>Expert Google Analytics &amp; ActiveCampaign</span>
+          <span>Conseil B2B, mise en place et transfert de compétences.</span>
+        </div>
+      </div>
 
-<!-- OFFRES PERSONNALISEES -->
-<div class="container">
-  <div class="offre-row">
-    <div class="offre-img">
-      <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=450&fit=crop" alt="Réunion stratégie personnalisée">
-    </div>
-    <div class="offre-content">
-      <h2>Des offres personnalisées !</h2>
-      <p>Si votre besoin n'est pas typique ou ne rentre pas dans mes packages, je cherche avec vous la stratégie à adopter.</p>
-      <div class="process-label">Processus de mise en place:</div>
-      <ul class="check-list">
-        <li>Rendez-vous gratuit de découverte/découverte</li>
-        <li>Envoi d'un devis/CPP</li>
-        <li>Mise en place calendrier prévisionnel</li>
-      </ul>
+      <div class="offsel-body">
+        <span class="offsel-tabs-label">Ma situation aujourd'hui</span>
+        <div class="offsel-tabs" id="offsel-tabs"></div>
+        <div class="offsel-panel" id="offsel-panel"></div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- FORMATIONS -->
-<div class="container">
-  <div class="offre-row reverse">
-    <div class="offre-img">
-      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=450&fit=crop" alt="Formation professionnelle certifiée">
-    </div>
-    <div class="offre-content">
-      <h2>Des formations personnalisées et certifiées</h2>
-      <p>Plus de formations toutes faites qualitatives. Chaque formation est faite de façon participative afin de vous corriger si une mauvaise utilisation ou considération de vos outils remonte. Je suis expert sur Google Analytics et ActiveCampaign. L'ensemble est suivi d'une période de suivi possible de 3 mois afin de vous guider sur le meilleur chemin.</p>
-      <a href="formation-ga4.html" class="offre-link">Découvrir mes formations &rarr;</a>
-    </div>
-  </div>
-</div>
+<script>
+(function(){
+  const ICONS = {
+    pack: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="15" height="15" rx="2"></rect><line x1="2.5" y1="7.5" x2="17.5" y2="7.5"></line></svg>',
+    custom: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="2.5" y1="6.5" x2="17.5" y2="6.5"></line><line x1="2.5" y1="13.5" x2="17.5" y2="13.5"></line><circle cx="13" cy="6.5" r="2.4" fill="currentColor" stroke="none"></circle><circle cx="7" cy="13.5" r="2.4" fill="currentColor" stroke="none"></circle></svg>',
+    training: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="3" width="15" height="10.5" rx="1.6"></rect><line x1="10" y1="13.5" x2="10" y2="17"></line><line x1="6.5" y1="17" x2="13.5" y2="17"></line></svg>',
+    combo: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7.4" cy="10" r="4.9"></circle><circle cx="12.6" cy="10" r="4.9"></circle></svg>'
+  };
+
+  const OFFERS = [
+    { num:"01", icon:"pack", label:"Je veux lancer une action marketing rapidement", tag:"Offre pré-faite",
+      title:"Un package prêt à lancer",
+      desc:"Les packages sont le fruit de mes 10 années d'expérience dans le B2B. Ils vous permettent simplement de lancer une action marketing efficace rapidement et avec un budget contrôlé.",
+      k1:"Budget", v1:"Contrôlé", k2:"Engagement", v2:"Au projet", k3:"Format", v3:"Clé en main",
+      bullets:["Livrables et prix fixés dès le devis","Mise en place opérationnelle par mes soins","Prise en main de vos outils incluse"],
+      next:"Je vous envoie le package correspondant et on cale 30 minutes pour valider le périmètre.",
+      cta:"Voir le package adapté", href:"rdv.html" },
+    { num:"02", icon:"custom", label:"Mon besoin est atypique, hors des packages", tag:"Offre personnalisée",
+      title:"Une offre construite pour votre cas",
+      desc:"Si votre besoin n'est pas typique ou ne rentre pas dans mes packages, je cherche avec vous la stratégie à adopter.",
+      k1:"Périmètre", v1:"Sur étude", k2:"Engagement", v2:"Devis + CPP", k3:"Format", v3:"Sur mesure",
+      bullets:["Rendez-vous de découverte gratuit","Devis et CPP détaillés avant tout démarrage","Calendrier prévisionnel partagé"],
+      next:"On démarre par un appel de découverte : votre contexte, vos outils, vos objectifs.",
+      cta:"Prendre rendez-vous", href:"rdv.html" },
+    { num:"03", icon:"training", label:"Mon équipe doit monter en compétence", tag:"Formation certifiée",
+      title:"Des formations personnalisées et certifiées",
+      desc:"Plus de formations toutes faites qualitatives. Chaque formation est faite de façon participative afin de vous corriger si une mauvaise utilisation ou considération de vos outils remonte. Je suis expert sur Google Analytics et ActiveCampaign. L'ensemble est suivi d'une période de suivi possible de 3 mois afin de vous guider sur le meilleur chemin.",
+      k1:"Suivi", v1:"Jusqu'à 3 mois", k2:"Aide", v2:"OPCO · Qualiopi", k3:"Format", v3:"Participatif",
+      bullets:["Format participatif, corrections en direct","Expertise Google Analytics & ActiveCampaign","3 mois de suivi après la session"],
+      next:"Je vous propose un programme sur vos cas réels, puis on fixe les dates.",
+      cta:"Construire ma formation", href:"formation-ga4.html" },
+    { num:"04", icon:"combo", label:"Je veux être formé et accompagné sur la mise en œuvre", tag:"Formation + coréalisation",
+      title:"Formation + coréalisation",
+      desc:"La formation seule ne suffit pas toujours : je forme votre équipe puis nous réalisons ensemble les premières actions sur vos propres outils. Vous montez en compétence sur vos cas réels, et vous repartez autonome.",
+      k1:"Suivi", v1:"Jusqu'à 3 mois", k2:"Aide", v2:"OPCO · Qualiopi", k3:"Format", v3:"Formation + mise en œuvre",
+      bullets:["Formation participative sur vos outils","Premières actions réalisées à quatre mains","Votre équipe reprend la main à la fin"],
+      next:"On définit ensemble ce que je réalise et ce que votre équipe prend en charge.",
+      cta:"Prendre rendez-vous", href:"rdv.html" }
+  ];
+
+  let current = 0;
+  const tabsEl = document.getElementById('offsel-tabs');
+  const panelEl = document.getElementById('offsel-panel');
+
+  function renderTabs(){
+    tabsEl.innerHTML = OFFERS.map((o,idx) => `
+      <button class="offsel-tab${idx===current?' active':''}" data-idx="${idx}" type="button">
+        <span class="offsel-tab-top">
+          <span class="offsel-tab-icon">${ICONS[o.icon]}</span>
+          <span class="offsel-tab-num">${o.num}</span>
+        </span>
+        <span class="offsel-tab-label">${o.label}</span>
+        ${idx===current ? '<span class="offsel-tab-tag">Votre situation — voir ci-dessous</span>' : ''}
+      </button>
+    `).join('');
+    tabsEl.querySelectorAll('.offsel-tab').forEach(btn => {
+      btn.addEventListener('click', function(){
+        current = parseInt(this.dataset.idx, 10);
+        renderTabs();
+        renderPanel();
+      });
+    });
+  }
+
+  function renderPanel(){
+    const o = OFFERS[current];
+    panelEl.innerHTML = `
+      <div class="offsel-panel-head">
+        <div class="offsel-panel-head-left">
+          <span class="offsel-panel-icon">${ICONS[o.icon]}</span>
+          <span>
+            <span class="offsel-panel-eyebrow" style="display:block;">Situation ${o.num} sélectionnée</span>
+            <span class="offsel-panel-label">${o.label}</span>
+          </span>
+        </div>
+        <span class="offsel-panel-badge">${o.tag}</span>
+      </div>
+      <div>
+        <h3>${o.title}</h3>
+        <p class="offsel-panel-desc">${o.desc}</p>
+      </div>
+      <div class="offsel-stats">
+        <div class="offsel-stat"><span>${o.k1}</span><span>${o.v1}</span></div>
+        <div class="offsel-stat"><span>${o.k2}</span><span>${o.v2}</span></div>
+        <div class="offsel-stat"><span>${o.k3}</span><span>${o.v3}</span></div>
+      </div>
+      <div class="offsel-divider"></div>
+      <div class="offsel-bottom">
+        <div>
+          <span class="offsel-bullets-label">Ce que vous obtenez</span>
+          <ul class="offsel-bullets">${o.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+        </div>
+        <div class="offsel-next">
+          <span>Prochaine étape</span>
+          <span>${o.next}</span>
+        </div>
+      </div>
+      <div class="offsel-cta-row">
+        <a href="${o.href}" class="offsel-cta">${o.cta}</a>
+        <div class="offsel-guarantee">
+          <span>Gratuit et sans engagement</span>
+          <span>30 min en visio · rendez-vous de découverte</span>
+        </div>
+      </div>
+    `;
+  }
+
+  renderTabs();
+  renderPanel();
+})();
+</script>
 
 <!-- TESTIMONIALS -->
 <section id="testimonials">
